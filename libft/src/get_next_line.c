@@ -18,7 +18,7 @@
 ** returns 1 if '\n' was found, 0 otherwise.
 */
 
-static int	ret_substring(char **astr, char **line)
+static int		ret_substring(char **astr, char **line)
 {
 	char *tmp;
 	char *chr;
@@ -43,7 +43,7 @@ static int	ret_substring(char **astr, char **line)
 ** 1 means something was added.
 */
 
-static int			empty_buffer(char *str, char **line)
+static int		empty_buffer(char *str, char **line)
 {
 	if (ft_isempty(str))
 	{
@@ -81,7 +81,7 @@ static void		concat_str(char **str, char **buf)
 ** Stores filedes into a link-list, in addition to the remaining
 ** contents of the buffer between reads.
 */
-static t_file		*fetch_file(int fd, t_list **alist)
+static t_file	*fetch_file(int fd, t_list **alist)
 {
 	t_list *tmp;
 	t_file *file;
@@ -111,7 +111,7 @@ static t_file		*fetch_file(int fd, t_list **alist)
 **  1 (string returned)
 */
 
-int			get_next_line(const int fd, char **line)
+int				get_next_line(const int fd, char **line)
 {
 	static t_list	*flist;
 	char			*buf;
