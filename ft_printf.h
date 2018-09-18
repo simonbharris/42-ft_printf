@@ -32,6 +32,13 @@
 # define IS_MOD(x) (x == 'h' || x == 'l' || x == 'j' || x == 'z')
 # define IS_2CHARMOD(x) ((x)[1] == 'h' || (x)[1] == 'l')
 
+#define PFO_ALT		0x0001
+#define PFO_PAD0	0x0002
+#define PFO_SPC		0x0004
+#define PFO_LPD		0x0008
+#define PFO_SIGN	0x0010
+#define PFO_PREC	0x0020
+
 /*
 ** s_pfdir (aka struct printf_directive)
 ** alt == '#' flag
@@ -46,13 +53,9 @@
 
 typedef struct	s_pfdir
 {
-	int		alt;
-	int		padzero;
-	int		space;
-	int		mfw; 
-	int		lpad;
-	int		sign;
-	int		prec;
+	int		oflags;
+	int		prec_val;
+	int		mfw;
 	char	mod[3];
 	char	type;
 }				t_pfdir;

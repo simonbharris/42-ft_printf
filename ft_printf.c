@@ -19,7 +19,7 @@
 ** on a null-byte.
 */
 
-static void	skip_atoi(const char **str)
+static void		skip_atoi(const char **str)
 {
 	while (ft_isdigit(**str))
 		*str += 1;
@@ -30,63 +30,62 @@ static t_pfdir	initpfdir(void)
 {
 	t_pfdir dir;
 
-	dir.alt = 0;
-	dir.padzero = 0;
-	dir.space = 0;
+	dir.oflags = 0;
 	dir.mfw = 0;
-	dir.lpad = 0;
-	dir.sign = 0;
 	ft_bzero(dir.mod, sizeof(char) * 3);
-	char type = '\0';
+	dir.type = '\0';
 	return (dir);
 }
 
-t_pfdir	get_dir(const char **format)
+t_pfdir			get_dir(const char **format)
 {
 	t_pfdir dir;
 
 	dir = initpfdir();
 	while (**format && !(IS_TYPE(**format)))
 	{
-		!dir.alt && (dir.alt = **format == '#');
-		!dir.padzero && (dir.padzero = **format == '0');
-		!dir.space && (dir.space = **format == ' ');
-		!dir.lpad && (dir.lpad = **format == '-');
-		!dir.sign && (dir.sign = **format == '+');
-		if (ft_isdigit(**format) && !(dir.padzero = (!ft_atoi(*format))))
-		{
-			dir.mfw = ft_atoi(*format);
+		dir.oflags |= (**format == '#') ? PFO_ALT : 0;
+		dir.oflags |= (**format == ' ') ? PFO_SPC : 0;
+		dir.oflags |= (**format == '-') ? PFO_LPD : 0;
+		dir.oflags |= (**format == '+') ? PFO_SIGN : 0;
+		dir.oflags |= (**format == '.') ? PFO_PREC : 0;
+		if (**format == '.' && (dir.oflags |= PFO_PREC) && (*format += 1)
+			&& ((dir.prec_val = ft_atoi(*format)) || (**format == '0')))
 			skip_atoi(format);
-		}
-		if (IS_MOD(**format) && (dir.mod[0] = **format))
-			dir.mod[1] = IS_2CHARMOD(*format) && *(*format += 1) ? (*format)[0] : 0;
+		else if (ft_isdigit(**format) && **format > '0')
+			(dir.mfw = ft_atoi(*format)) ? skip_atoi(format) : 0;
+		else if (**format == '0')
+			dir.oflags |= PFO_PAD0;
+		if (!dir.mod[0] && IS_MOD(**format) && (dir.mod[0] = **format))
+			dir.mod[1] = (IS_2CHARMOD(*format)) ? (*format)[1] : 0;
 		*format += 1;
 	}
 	dir.type = **format;
+	*format += 1;
 	return (dir);
 }
 
-int			ft_printf(const char *format, ...)
-{
-	va_list ap;
-	t_pfdir dir;
+// int			ft_printf(const char *format, ...)
+// {
+// 	va_list ap;
+// 	t_pfdir dir;
 
-	va_start(ap, format);
-	while (*format)
-	{
-		if (*format == '%')
-		{
-			if (format[1] == '%')
-			{
-				ft_putchar('%');
-				format += 2;
-				continue ;
-			}
-			dir = get_dir(&format);
-		}
-	}
-	return(0);
-}
+// 	va_start(ap, format);
+// 	while (*format)
+// 	{
+// 		if (*format == '%')
+// 		{
+// 			if (format[1] == '%')
+// 			{
+// 				ft_putchar('%');
+// 				format += 2;
+// 				continue ;
+// 			}
+// 			dir = get_dir(&format);
+// 		}
+// 	}
+// 	return(0);
+// }
 
 /*
 static void	putformat(const char *format, va_list ap)
