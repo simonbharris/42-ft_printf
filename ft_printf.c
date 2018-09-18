@@ -13,6 +13,15 @@
 #include "ft_printf.h"
 
 /*
+** CHK_SETO -- check and set options.
+** Compares directive flags (dir) with supplied (opt) flag.
+** if no match, check if our supplied dir char (dc) matches a flag char(fc)
+** if match, bitwise or assignmento n the flag.
+*/
+
+#define CHK_SETO(dir, opt, fc, dc) !(dir & opt) && (dc == fc) && (dir |= opt);
+
+/*
 ** skip_atoi
 ** leaps any digits in the string. Moves back 1 space so the guaranteed string
 ** increments in get_dir don't seg fault--In case the skip places us
@@ -26,6 +35,11 @@ static void		skip_atoi(const char **str)
 	*str -= 1;
 }
 
+/*
+** initpfdir -- initialize a pfdir struct type.
+** Initializes a pfdir struct, setting all values to defaults.
+*/
+
 static t_pfdir	initpfdir(void)
 {
 	t_pfdir dir;
@@ -37,6 +51,15 @@ static t_pfdir	initpfdir(void)
 	return (dir);
 }
 
+/*
+** get_dir -- Get the directive.
+** This functions parses the directive char '%'
+** until a datatype character: sSpdDioOuUxXcC
+** Stores the directive flags and values into a pfdir struct.
+** Also advances the pointer to the format string the next
+** non-option byte.
+*/
+
 t_pfdir			get_dir(const char **format)
 {
 	t_pfdir dir;
@@ -44,13 +67,12 @@ t_pfdir			get_dir(const char **format)
 	dir = initpfdir();
 	while (**format && !(IS_TYPE(**format)))
 	{
-		dir.oflags |= (**format == '#') ? PFO_ALT : 0;
-		dir.oflags |= (**format == ' ') ? PFO_SPC : 0;
-		dir.oflags |= (**format == '-') ? PFO_LPD : 0;
-		dir.oflags |= (**format == '+') ? PFO_SIGN : 0;
-		dir.oflags |= (**format == '.') ? PFO_PREC : 0;
-		if (**format == '.' && (dir.oflags |= PFO_PREC) && (*format += 1)
-			&& ((dir.prec_val = ft_atoi(*format)) || (**format == '0')))
+		CHK_SETO(dir.oflags, PFO_ALT, '#', **format);
+		CHK_SETO(dir.oflags, PFO_SPC, ' ', **format);
+		CHK_SETO(dir.oflags, PFO_LPD, '-', **format);
+		CHK_SETO(dir.oflags, PFO_SIGN, '+', **format);
+		if (**format == '.' && (dir.oflags |= PFO_PREC)
+		&& ((dir.prec_val = ft_atoi((*format += 1))) || (**format == '0')))
 			skip_atoi(format);
 		else if (ft_isdigit(**format) && **format > '0')
 			(dir.mfw = ft_atoi(*format)) ? skip_atoi(format) : 0;
