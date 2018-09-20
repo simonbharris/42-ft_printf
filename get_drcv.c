@@ -13,15 +13,6 @@
 #include "ft_printf.h"
 
 /*
-** CHK_SETO -- check and set options.
-** Compares directive flags (dir) with supplied (opt) flag.
-** if no match, check if our supplied dir char (dc) matches a flag char(fc)
-** if match, bitwise or assignmento n the flag.
-*/
-
-#define CHK_SETO(d, o, c, f) !(d->oflags & o) && (f== c) && (d->oflags |= o);
-
-/*
 ** skip_atoi
 ** leaps any digits in the string. Moves back 1 space so the guaranteed string
 ** increments in get_dir don't seg fault--In case the skip places us
@@ -30,35 +21,53 @@
 
 static void		skip_atoi(const char **str)
 {
-	while (ft_isdigit(**str))
-		*str += 1;
-	*str -= 1;
+	if (ft_isdigit(**str))
+	{
+		while (ft_isdigit(**str))
+			*str += 1;
+		*str -= 1;
+	}
 }
 
 /*
-** initpfdir -- initialize a pfdir struct type.
-** Initializes a pfdir struct, setting all values to defaults.
+** Details for the following 3 funcitons:
+** set_opt = set options
+** get_mfw_prec = sets the precision and mfw flags and also obtains
+**		the minium field width and precision values.
+** get lmod = get length modifier
+** all 3 functions add flags to drcv.oflags depending on what they find.
 */
 
 static void		set_opt(t_pfdrcv *drcv, const char c)
 {
-	CHK_SETO(drcv, PFO_ALT, '#', c);
-	CHK_SETO(drcv, PFO_SPC, ' ', c);
-	CHK_SETO(drcv, PFO_LPD, '-', c);
-	CHK_SETO(drcv, PFO_SIGN, '+', c);
-	CHK_SETO(drcv, PFO_PAD0, '0', c);
+	if(!(drcv->oflags & PFO_ALT) && (c == '#'))
+		drcv->oflags |= PFO_ALT;
+	if(!(drcv->oflags & PFO_PAD0) && (c == '0'))
+		drcv->oflags |= PFO_PAD0;
+	if(!(drcv->oflags & PFO_SPC) && (c == ' '))
+		drcv->oflags |= PFO_SPC;
+	if(!(drcv->oflags & PFO_LPD) && (c == '-'))
+		drcv->oflags |= PFO_LPD;
+	if(!(drcv->oflags & PFO_SIGN) && (c == '+'))
+		drcv->oflags |= PFO_SIGN;
 }
 
-static void		get_mfw_prec(t_pfdrcv *drcv, const char **format)
+static void		set_mfw_prec(t_pfdrcv *drcv, const char **format)
 {
-	if (**format == '.' && (drcv->oflags |= PFO_PREC)
-	&& ((drcv->prec_val = ft_atoi((*format += 1))) || (**format == '0')))
+	if (**format == '.' || ft_isdigit(**format))
+	{
+		if (**format == '.')
+		{
+			drcv->oflags |= PFO_PREC;
+			drcv->prec_val = ft_atoi((*format += 1));
+		}
+		else
+			drcv->mfw = ft_atoi(*format);
 		skip_atoi(format);
-	else if (ft_isdigit(**format) && **format > '0')
-		(drcv->mfw = ft_atoi(*format)) ? skip_atoi(format) : 0;
+	}
 }
 
-static void		get_lmod(t_pfdrcv *drcv, const char **format)
+static void		set_lmod(t_pfdrcv *drcv, const char **format)
 {
 	if (IS_MOD(**format))
 	{
@@ -93,8 +102,8 @@ t_pfdrcv		get_drcv(const char **format)
 	while (**format && !ft_strchr("sSpdDioOuUxXcC", (int)**format))
 	{
 		set_opt(&drcv, **format);
-		get_mfw_prec(&drcv, format);
-		get_lmod(&drcv, format);
+		set_mfw_prec(&drcv, format);
+		set_lmod(&drcv, format);
 		*format += 1;
 	}
 	drcv.type = **format;
