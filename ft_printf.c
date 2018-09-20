@@ -1,4 +1,5 @@
 
+/* NOTHING HERE WORKS / TRASH CODE! */
 // int			ft_printf(const char *format, ...)
 // {
 // 	va_list ap;
