@@ -1,26 +1,49 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sharris <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/20 15:57:14 by sharris           #+#    #+#             */
+/*   Updated: 2018/09/20 15:57:15 by sharris          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
 
 /* NOTHING HERE WORKS / TRASH CODE! */
-// int			ft_printf(const char *format, ...)
-// {
-// 	va_list ap;
-// 	t_pfdir dir;
+int			ft_printf(const char *format, ...)
+{
+	va_list ap;
+	t_pfdrcv drcv;
+	int numwrite;
 
-// 	va_start(ap, format);
-// 	while (*format)
-// 	{
-// 		if (*format == '%')
-// 		{
-// 			if (format[1] == '%')
-// 			{
-// 				ft_putchar('%');
-// 				format += 2;
-// 				continue ;
-// 			}
-// 			dir = get_dir(&format);
-// 		}
-// 	}
-// 	return(0);
-// }
+	numwrite = 0;
+	va_start(ap, format);
+	while (*format)
+	{
+		if (*format == '%')
+		{
+			if (format[1] == '%')
+			{
+				ft_putchar('%');
+				format += 2;
+			}
+			else
+			{
+				drcv = get_drcv(&format);
+				numwrite += put_drcv(drcv, ap);
+				continue ;
+			}
+		}
+		else
+			ft_putchar(*format);
+		numwrite++;
+		format++;
+	}
+	return(numwrite);
+}
 
 /*
 static void	putformat(const char *format, va_list ap)

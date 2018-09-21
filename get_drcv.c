@@ -15,26 +15,17 @@
 /*
 ** skip_atoi
 ** leaps any digits in the string. Moves back 1 space so the guaranteed string
-** increments in get_dir don't seg fault--In case the skip places us
+** increments in get_drcv don't seg fault--In case the skip places us
 ** on a null-byte.
 */
-
-static void		skip_atoi(const char **str)
-{
-	if (ft_isdigit(**str))
-	{
-		while (ft_isdigit(**str))
-			*str += 1;
-		*str -= 1;
-	}
-}
 
 /*
 ** Details for the following 3 funcitons:
 ** set_opt = set options
-** get_mfw_prec = sets the precision and mfw flags and also obtains
+** set_mfw_prec = sets the precision and mfw flags and also obtains
 **		the minium field width and precision values.
-** get lmod = get length modifier
+** set_lmod = get length modifier
+** set_type
 ** all 3 functions add flags to drcv.oflags depending on what they find.
 */
 
@@ -85,6 +76,32 @@ static void		set_lmod(t_pfdrcv *drcv, const char **format)
 	}
 }
 
+static void		set_type(t_pfdrcv *drcv, const char **format)
+{
+	if (ft_strchr("DOUSC", (int)**format))
+		drcv->oflags |= PFO_L;
+	if (ft_tolower((int)**format) == 'd')
+		drcv->oflags |= PFO_D;
+	else if (ft_tolower((int)**format) == 'o')
+		drcv->oflags |= PFO_O;
+	else if (ft_tolower((int)**format) == 'u')
+		drcv->oflags |= PFO_U;
+	else if (ft_tolower((int)**format) == 's')
+		drcv->oflags |= PFO_S;
+	else if (ft_tolower((int)**format) == 'c')
+		drcv->oflags |= PFO_C;
+	else if (ft_tolower((int)**format) == 'p')
+		drcv->oflags |= PFO_P;
+	else if (ft_tolower((int)**format) == 'i')
+		drcv->oflags |= PFO_I;
+	else if (ft_tolower((int)**format) == 'x')
+	{
+		if (**format == 'X')
+			drcv->oflags |= PFO_CAPS;
+		drcv->oflags |= PFO_X;
+	}
+}
+
 /*
 ** get_dir -- Get the directive.
 ** This functions parses the directive char '%'
@@ -106,7 +123,7 @@ t_pfdrcv		get_drcv(const char **format)
 		set_lmod(&drcv, format);
 		*format += 1;
 	}
-	drcv.type = **format;
+	set_type(&drcv, format);
 	*format += 1;
 	return (drcv);
 }

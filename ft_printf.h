@@ -24,33 +24,48 @@
 /*
 ** ft_printf types and modifiers
 */
-
+# define PF_DFLAG "sSpdDioOuUxXcC"
 # define IS_MOD(x) (x == 'h' || x == 'l' || x == 'j' || x == 'z')
 # define IS_2CHARMOD(x) ((x)[1] == 'h' || (x)[1] == 'l')
 
 /*
 ** Option Flag tabke for ft_printf
-** 00xx == options and precision flags
-** xx00 == length modifier flags
+** 0000xx == options and precision flags
+** 00xx00 == length modifier flags
+** xx0000 == type modifier flags
 */
-#define PFO_ALT		0x0001
-#define PFO_PAD0	0x0002
-#define PFO_SPC		0x0004
-#define PFO_LPD		0x0008
-#define PFO_SIGN	0x0010
-#define PFO_PREC	0x0020
 
-#define PFO_2MOD	0x0100
-#define PFO_H		0x0200
-#define PFO_L		0x0400
-#define PFO_J		0x0800
-#define PFO_Z		0x1000
+#define PFO_ALT		0x000001
+#define PFO_PAD0	0x000002
+#define PFO_SPC		0x000004
+#define PFO_LPD		0x000008
+
+#define PFO_SIGN	0x000010
+#define PFO_PREC	0x000020
+
+#define PFO_2MOD	0x000100
+#define PFO_H		0x000200
+#define PFO_L		0x000400
+#define PFO_J		0x000800
+#define PFO_Z		0x001000
+#define PFO_CAPS	0x002000
+
+#define PFO_S		0x010000
+#define PFO_P		0x020000
+#define PFO_D		0x040000
+#define PFO_I		0x080000
+#define PFO_O		0x100000
+#define PFO_U		0x200000
+#define PFO_X		0x400000
+#define PFO_C		0x800000
 
 /*
 ** Compound flags
 */
-#define PFO_HH		0x0300
-#define PFO_LL		0x0500
+
+#define PFO_HH		0x000300
+#define PFO_LL		0x000500
+#define PFO_DIOUX	0x7c0000
 
 /*
 ** s_pfdir (aka struct printf_directive)
@@ -69,10 +84,13 @@ typedef struct	s_pfdrcv
 	int		oflags;
 	int		prec_val;
 	int		mfw;
-	char	type;
 }				t_pfdrcv;
 
+void		skip_atoi(const char **str);
 t_pfdrcv	get_drcv(const char **format);
 t_pfdrcv	initpfdir(void);
+int			put_drcv(t_pfdrcv drcv, va_list ap);
+char 		*pf_di(t_pfdrcv drcv, va_list ap);
+int			ft_printf(const char *format, ...);
 
 #endif
