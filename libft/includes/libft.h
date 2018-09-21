@@ -98,5 +98,6 @@ char			*ft_stpncpy(char *dst, const char *src, size_t len);
 int				ft_mod(int nbr, int mod);
 void			ft_lstdelone_f(void *content, size_t size);
 void			ft_lstpush(t_list **alst, t_list *new);
+char			*ft_itoabase(size_t nbr, char *base);
 
 #endif
