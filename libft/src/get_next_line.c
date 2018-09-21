@@ -81,6 +81,7 @@ static void		concat_str(char **str, char **buf)
 ** Stores filedes into a link-list, in addition to the remaining
 ** contents of the buffer between reads.
 */
+
 static t_file	*fetch_file(int fd, t_list **alist)
 {
 	t_list *tmp;
