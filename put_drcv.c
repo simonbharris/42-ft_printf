@@ -30,10 +30,11 @@ char *pf_dioux(t_pfdrcv drcv, va_list ap)
 		return (pf_di(drcv, ap));
 	else if (drcv.oflags & PFO_O)
 		return (pf_o(drcv, ap));
-	// else if (drcv.oflags & PFO_U)
-	// 	return (pf_u(drcv, ap));
+	else if (drcv.oflags & PFO_U)
+		return (pf_u(drcv, ap));
 	// else if (drcv.oflags & PFO_X)
 	// 	return (pf_x(drcv, ap));
+	return (NULL);
 }
 
 char *dispatcher(t_pfdrcv drcv, va_list ap)
@@ -46,6 +47,7 @@ char *dispatcher(t_pfdrcv drcv, va_list ap)
 	// 	pf_p(drcv, ap);
 	// else if (drcv.type == 'c')
 	// 	pf_c(drcv, ap);
+	return (NULL);
 }
 
 int		put_drcv(t_pfdrcv drcv, va_list ap)

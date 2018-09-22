@@ -86,11 +86,16 @@ typedef struct	s_pfdrcv
 	int		mfw;
 }				t_pfdrcv;
 
+int			ft_printf(const char *format, ...);
+
 void		skip_atoi(const char **str);
 t_pfdrcv	get_drcv(const char **format);
 t_pfdrcv	initpfdir(void);
 int			put_drcv(t_pfdrcv drcv, va_list ap);
+
 char 		*pf_di(t_pfdrcv drcv, va_list ap);
-int			ft_printf(const char *format, ...);
+char		*pf_o(t_pfdrcv drcv, va_list ap);
+char		*pf_u(t_pfdrcv drcv, va_list ap);
+
 
 #endif
