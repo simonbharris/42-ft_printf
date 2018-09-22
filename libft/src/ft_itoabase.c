@@ -12,14 +12,14 @@
 
 #include <libft.h>
 
-static int	get_allocsize(int nbr, int base)
+static int	get_allocsize(size_t nbr, int base)
 {
 	int i;
 
 	i = 1;
 	if (nbr == 0)
 		return (i);
-	while ((nbr /= 10) > 0)
+	while (((nbr /= base) > 0))
 		i++;
 	return (i);
 }
