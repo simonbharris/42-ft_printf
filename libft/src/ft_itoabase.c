@@ -12,14 +12,23 @@
 
 #include <libft.h>
 
-static int	get_allocsize(size_t nbr, int base)
+/*
+** ft_itoabase
+** Converts the unsigend value into a string represenation.
+** Returns a fresh, malloced string containing the results.
+** Value prints using base as a key.
+** Example, to print in hex (Base16) pass "0123456789abcdef" into base.
+** Repeat characters in base causes undefined behavior.
+*/
+
+static int	get_allocsize(size_t nbr, int blen)
 {
 	int i;
 
 	i = 1;
 	if (nbr == 0)
 		return (i);
-	while (((nbr /= base) > 0))
+	while (((nbr /= blen) > 0))
 		i++;
 	return (i);
 }
