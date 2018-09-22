@@ -17,18 +17,18 @@ char *pf_di(t_pfdrcv drcv, va_list ap)
 	intmax_t i;
 
 	if (drcv.oflags & PFO_HH)
-		i = (intmax_t)va_arg(ap, int);
+		i = va_arg(ap, int);
 	else if (drcv.oflags & PFO_H)
-		i = (intmax_t)va_arg(ap, int);
+		i = va_arg(ap, int);
 	else if (drcv.oflags & PFO_L)
-		i = (intmax_t)va_arg(ap, long);
+		i = va_arg(ap, long);
 	else if (drcv.oflags & PFO_LL)
-		i = (intmax_t)va_arg(ap, long long);
+		i = va_arg(ap, long long);
 	else if (drcv.oflags & PFO_J)
-		i = (intmax_t)va_arg(ap, intmax_t);
+		i = va_arg(ap, intmax_t);
 	else if (drcv.oflags & PFO_Z)
-		i = (intmax_t)va_arg(ap, size_t);
+		i = va_arg(ap, size_t);
 	else
-		i = (intmax_t)va_arg(ap, int);
+		i = va_arg(ap, int);
 	return (ft_itoa(i));
 }
