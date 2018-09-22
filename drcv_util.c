@@ -23,7 +23,6 @@ t_pfdrcv	initpfdir(void)
 
 	drcv.oflags = 0;
 	drcv.mfw = 0;
-	drcv.type = '\0';
 	return (drcv);
 }
 
