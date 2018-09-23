@@ -20,22 +20,7 @@
          maximum number of characters to be printed from a string for s conversions.
 */
 
-/*
-** gen_padding
-** Generates a malloced string of len length
-** String contents are filled with c characters.
-** null-terminated.
-*/
 
-char *gen_padding(int len, int c)
-{
-	char *out;
-
-	out = ft_strnew(len);
-	while (len-- > 0)
-		out[len] = c;
-	return (out);
-}
 
 /*
 ** is_zero

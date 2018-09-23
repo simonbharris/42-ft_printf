@@ -64,7 +64,6 @@ int		put_drcv(t_pfdrcv drcv, va_list ap)
 		ft_putwstr((wchar_t *)str);
 	else
 		ft_putstr(str);
-
 	ft_memdel((void **)&str);
 	return (len);
 }
