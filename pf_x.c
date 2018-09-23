@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_u.c                                             :+:      :+:    :+:   */
+/*   pf_x.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sharris <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-char *pf_u(t_pfdrcv drcv, va_list ap)
+char *pf_x(t_pfdrcv drcv, va_list ap)
 {
 	size_t i;
 
@@ -30,5 +30,8 @@ char *pf_u(t_pfdrcv drcv, va_list ap)
 		i = va_arg(ap, size_t);
 	else
 		i = va_arg(ap, unsigned int);
-	return(ft_itoabase(i, "0123456789"));
+	if (drcv.oflags & PFO_CAPS)
+		return (ft_itoabase(i, "0123456789ABCDEF"));
+	return (ft_itoabase(i, "0123456789abcdef"));
 }
+

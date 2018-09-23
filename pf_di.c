@@ -12,6 +12,16 @@
 
 #include "ft_printf.h"
 
+// static char *prepend_str(intmax_t i, const char *str)
+// {
+// 	char *chr;
+// 	char *ret;
+
+// 	chr = ft_strdup(str);
+// 	ret = ft_itoa(i);
+// 	return (ft_strffjoin(&chr, &ret));
+// }
+
 char *pf_di(t_pfdrcv drcv, va_list ap)
 {
 	intmax_t i;

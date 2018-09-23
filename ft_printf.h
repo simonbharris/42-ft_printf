@@ -24,6 +24,7 @@
 /*
 ** ft_printf types and modifiers
 */
+// Todo: "pcC"
 # define PF_DFLAG "sSpdDioOuUxXcC"
 # define IS_MOD(x) (x == 'h' || x == 'l' || x == 'j' || x == 'z')
 # define IS_2CHARMOD(x) ((x)[1] == 'h' || (x)[1] == 'l')
@@ -66,6 +67,7 @@
 #define PFO_HH		0x000300
 #define PFO_LL		0x000500
 #define PFO_DIOUX	0x7c0000
+#define PFO_SC		0x810000
 
 /*
 ** s_pfdir (aka struct printf_directive)
@@ -96,6 +98,8 @@ int			put_drcv(t_pfdrcv drcv, va_list ap);
 char 		*pf_di(t_pfdrcv drcv, va_list ap);
 char		*pf_o(t_pfdrcv drcv, va_list ap);
 char		*pf_u(t_pfdrcv drcv, va_list ap);
-
+char		*pf_x(t_pfdrcv drcv, va_list ap);
+char		*pf_s(t_pfdrcv drcv, va_list ap);
+char		*pf_c(t_pfdrcv drcv, va_list ap);
 
 #endif

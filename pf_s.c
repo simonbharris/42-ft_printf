@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_u.c                                             :+:      :+:    :+:   */
+/*   pf_s.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sharris <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,23 +12,15 @@
 
 #include "ft_printf.h"
 
-char *pf_u(t_pfdrcv drcv, va_list ap)
+char *pf_s(t_pfdrcv drcv, va_list ap)
 {
-	size_t i;
+	char *str;
 
-	if (drcv.oflags & PFO_HH)
-		i = va_arg(ap, unsigned int);
-	else if (drcv.oflags & PFO_H)
-		i = va_arg(ap, unsigned int);
-	else if (drcv.oflags & PFO_L)
-		i = va_arg(ap, unsigned long);
-	else if (drcv.oflags & PFO_LL)
-		i = va_arg(ap, unsigned long long);
-	else if (drcv.oflags & PFO_J)
-		i = va_arg(ap, uintmax_t);
-	else if (drcv.oflags & PFO_Z)
-		i = va_arg(ap, size_t);
+	if (drcv.oflags & PFO_L)
+		{
+			MALCHECK(str = (char *)ft_wstrdup((wchar_t *)va_arg(ap, wchar_t *)))
+		}
 	else
-		i = va_arg(ap, unsigned int);
-	return(ft_itoabase(i, "0123456789"));
+		MALCHECK(str = ft_strdup((char *)va_arg(ap, char *)));
+	return(str);
 }

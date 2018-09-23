@@ -55,10 +55,12 @@ SRC_FILES = ft_abs.c \
 			ft_putnbr.c \
 			ft_putnbr_fd.c \
 			ft_putstr.c \
+			ft_putwstr.c \
 			ft_putstr_fd.c \
 			ft_realloc.c \
 			ft_stpncpy.c \
 			ft_strcat.c \
+			ft_strcfjoin.c \
 			ft_strchr.c \
 			ft_strclr.c \
 			ft_strcmp.c \
@@ -66,6 +68,7 @@ SRC_FILES = ft_abs.c \
 			ft_strdel.c \
 			ft_strdup.c \
 			ft_strequ.c \
+			ft_strffjoin.c \
 			ft_striter.c \
 			ft_striteri.c \
 			ft_strjoin.c \
@@ -87,6 +90,10 @@ SRC_FILES = ft_abs.c \
 			ft_tolower.c \
 			ft_toupper.c \
 			ft_wordcount.c \
+			ft_wstrcpy.c \
+			ft_wstrdup.c \
+			ft_wstrlen.c \
+			ft_wstrnew.c \
 			get_next_line.c
 OBJ = $(SRC_FILES:%.c=$(OBJ_DIR)%.o)
 HEADER = $(INC_DIR)/libft.h

@@ -32,8 +32,8 @@ char *pf_dioux(t_pfdrcv drcv, va_list ap)
 		return (pf_o(drcv, ap));
 	else if (drcv.oflags & PFO_U)
 		return (pf_u(drcv, ap));
-	// else if (drcv.oflags & PFO_X)
-	// 	return (pf_x(drcv, ap));
+	else if (drcv.oflags & PFO_X)
+		return (pf_x(drcv, ap));
 	return (NULL);
 }
 
@@ -41,12 +41,12 @@ char *dispatcher(t_pfdrcv drcv, va_list ap)
 {
 	if (drcv.oflags & PFO_DIOUX)
 		return (pf_dioux(drcv, ap));
-	// else if (drcv.type == 's')
-	// 	pf_s(drcv, ap);
+	else if (drcv.oflags & PFO_S)
+		return (pf_s(drcv, ap));
 	// else if (drcv.type == 'p')
-	// 	pf_p(drcv, ap);
-	// else if (drcv.type == 'c')
-	// 	pf_c(drcv, ap);
+	// 	return (pf_p(drcv, ap));
+	else if (drcv.oflags & PFO_C)
+		return (pf_c(drcv, ap));
 	return (NULL);
 }
 
@@ -55,10 +55,12 @@ int		put_drcv(t_pfdrcv drcv, va_list ap)
 	char *str;
 	int len;
 	
-	str = dispatcher(drcv, ap);
+	MALCHECK(str = dispatcher(drcv, ap));
 	len = ft_strlen(str);
-	ft_putstr(str);
-	free(str);
+	if ((drcv.oflags & PFO_SC) && (drcv.oflags & PFO_L))
+		ft_putwstr((wchar_t *)str);
+	else
+		ft_putstr(str);
+	ft_memdel((void **)&str);
 	return (len);
 }
-

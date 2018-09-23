@@ -17,12 +17,18 @@
 # include <string.h>
 # include <stdlib.h>
 
+# define MALCHECK(x) if ((x) == NULL) { return (NULL); }
+
 typedef struct	s_list
 {
 	void			*content;
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
+
+/*
+** Group 1 Libft Requirements
+*/
 
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *s, size_t n);
@@ -55,6 +61,10 @@ int				ft_isprint(int c);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
 
+/*
+** Group 2 Libft Requirements
+*/
+
 void			*ft_memalloc(size_t size);
 void			ft_memdel(void **ap);
 char			*ft_strnew(size_t size);
@@ -80,12 +90,20 @@ void			ft_putstr_fd(char const *s, int fd);
 void			ft_putendl_fd(char const *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 
+/*
+** libft Bonus functions
+*/
+
 t_list			*ft_lstnew(void const *content, size_t content_size);
 void			ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void			ft_lstadd(t_list **alst, t_list *new);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+
+/*
+** Extra / Personal functions.
+*/
 
 int				ft_islower(int c);
 int				ft_isupper(int c);
@@ -99,5 +117,12 @@ int				ft_mod(int nbr, int mod);
 void			ft_lstdelone_f(void *content, size_t size);
 void			ft_lstpush(t_list **alst, t_list *new);
 char			*ft_itoabase(size_t nbr, char *base);
+char			*ft_strffjoin(char **dst, char **src);
+char			*ft_strcfjoin(const char *dst, char **src);
+void			ft_putwstr(wchar_t *wstr);
+wchar_t			*ft_wstrdup(const wchar_t *s1);
+size_t			ft_wstrlen(const wchar_t *s);
+wchar_t			*ft_wstrnew(size_t size);
+wchar_t			*ft_wstrcpy(wchar_t *dst, const wchar_t *src);
 
 #endif
