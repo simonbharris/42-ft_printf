@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_wstrlen.c                                       :+:      :+:    :+:   */
+/*   pf_p.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sharris <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/22 11:14:53 by sharris           #+#    #+#             */
-/*   Updated: 2018/09/22 11:14:53 by sharris          ###   ########.fr       */
+/*   Created: 2018/09/23 07:40:06 by sharris           #+#    #+#             */
+/*   Updated: 2018/09/23 07:40:48 by sharris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "ft_printf.h"
 
-/*
-** wide string length.
-** returns the length of a wchar_t array.
-** Must be null-terminated
-*/
-
-size_t	ft_wstrlen(const wchar_t *s)
+char *pf_p(t_pfdrcv drcv, va_list ap)
 {
-	int i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	size_t i;
+	
+	if (sizeof(void *) == 8)
+		i = va_arg(ap, unsigned long);
+	else
+		i = va_arg(ap, unsigned int);
+	return (ft_itoabase(i, "0123456789abcdef"));
 }

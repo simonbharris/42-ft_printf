@@ -50,7 +50,7 @@ static void		set_mfw_prec(t_pfdrcv *drcv, const char **format)
 		if (**format == '.')
 		{
 			drcv->oflags |= PFO_PREC;
-			drcv->prec_val = ft_atoi((*format += 1));
+			drcv->pv = ft_atoi((*format += 1));
 		}
 		else
 			drcv->mfw = ft_atoi(*format);

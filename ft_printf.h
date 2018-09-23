@@ -24,7 +24,7 @@
 /*
 ** ft_printf types and modifiers
 */
-// Todo: "pcC"
+
 # define PF_DFLAG "sSpdDioOuUxXcC"
 # define IS_MOD(x) (x == 'h' || x == 'l' || x == 'j' || x == 'z')
 # define IS_2CHARMOD(x) ((x)[1] == 'h' || (x)[1] == 'l')
@@ -71,29 +71,34 @@
 
 /*
 ** s_pfdir (aka struct printf_directive)
-** alt == '#' flag
-** padzero == bool; pad with zero?
-** space == boo; space before positive number?
-** mfw == minimum field width, for padding.
-** lpad == bool; left pad?
-** sign == bool; explicitly print positive sign? ('+')
-** mod == hh, h, l, ll, j, et, z (mod[0] != 0 if value exists)
-** type == one of: sSpdDioOuUxXcC
+** oflags == tracks various flags. Is a result of the comination of
+**		the above defines.
+** mfw == Value of minimum field width.
+** pv == Value of precision.
 */
 
 typedef struct	s_pfdrcv
 {
 	int		oflags;
-	int		prec_val;
+	int		pv;
 	int		mfw;
 }				t_pfdrcv;
 
 int			ft_printf(const char *format, ...);
 
-void		skip_atoi(const char **str);
+/*
+** Utilities
+*/
+
 t_pfdrcv	get_drcv(const char **format);
-t_pfdrcv	initpfdir(void);
 int			put_drcv(t_pfdrcv drcv, va_list ap);
+void		skip_atoi(const char **str);
+t_pfdrcv	initpfdir(void);
+char		*gen_padding(int len, int c);
+
+/*
+** Functions to handle flags.
+*/
 
 char 		*pf_di(t_pfdrcv drcv, va_list ap);
 char		*pf_o(t_pfdrcv drcv, va_list ap);
@@ -101,5 +106,7 @@ char		*pf_u(t_pfdrcv drcv, va_list ap);
 char		*pf_x(t_pfdrcv drcv, va_list ap);
 char		*pf_s(t_pfdrcv drcv, va_list ap);
 char		*pf_c(t_pfdrcv drcv, va_list ap);
+char		*pf_p(t_pfdrcv drcv, va_list ap);
+char		*pf_prec(t_pfdrcv drcv, char **astr);
 
 #endif

@@ -124,5 +124,6 @@ wchar_t			*ft_wstrdup(const wchar_t *s1);
 size_t			ft_wstrlen(const wchar_t *s);
 wchar_t			*ft_wstrnew(size_t size);
 wchar_t			*ft_wstrcpy(wchar_t *dst, const wchar_t *src);
+int				ft_max(int i, int j);
 
 #endif

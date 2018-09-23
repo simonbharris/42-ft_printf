@@ -23,8 +23,14 @@ t_pfdrcv	initpfdir(void)
 
 	drcv.oflags = 0;
 	drcv.mfw = 0;
+	drcv.pv = 0;
 	return (drcv);
 }
+
+/*
+** skip_atoi
+** Skips over positive atoi values.
+*/
 
 void		skip_atoi(const char **str)
 {
@@ -34,4 +40,21 @@ void		skip_atoi(const char **str)
 			*str += 1;
 		*str -= 1;
 	}
+}
+
+/*
+** gen_padding
+** Generates a malloced string of len length
+** String contents are filled with c characters.
+** null-terminated.
+*/
+
+char *gen_padding(int len, int c)
+{
+	char *out;
+
+	out = ft_strnew(len);
+	while (len-- > 0)
+		out[len] = c;
+	return (out);
 }
