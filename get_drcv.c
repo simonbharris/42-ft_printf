@@ -50,11 +50,13 @@ static void		set_mfw_prec(t_pfdrcv *drcv, const char **format)
 		if (**format == '.')
 		{
 			drcv->oflags |= PFO_PREC;
-			drcv->pv = ft_atoi((*format += 1));
+			if (ft_isdigit((*format)[1]))
+				drcv->pv = ft_atoi((*format += 1));
 		}
 		else
 			drcv->mfw = ft_atoi(*format);
-		skip_atoi(format);
+		if (**format == '-' || ft_isdigit(**format))
+			skip_atoi(format);
 	}
 }
 
