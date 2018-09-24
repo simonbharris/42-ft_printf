@@ -74,19 +74,28 @@ static char *o_prepend(t_pfdrcv drcv, char **astr)
 // ! Non-numeric datatypes not yet supported.
 char *pf_prec(t_pfdrcv drcv, char **astr)
 {
-	char *zero;
+	char *hold;
 
 		if ((drcv.oflags & PFO_DIOUX) || (drcv.oflags & PFO_P))
 		{
 			if (drcv.oflags & PFO_PREC && ft_strlen(*astr) < drcv.pv)
 			{
-				zero = gen_padding(drcv.pv - ft_strlen(*astr), '0');
-				*astr = ft_strffjoin(&zero, astr);
+				hold = gen_padding(drcv.pv - ft_strlen(*astr), '0');
+				*astr = ft_strffjoin(&hold, astr);
 			}
 			if ((drcv.oflags & PFO_X) || (drcv.oflags & PFO_P))
 				xp_prepend(drcv, astr);
 			else if (drcv.oflags & PFO_O)
 				o_prepend(drcv, astr);
+		}
+		else if ((drcv.oflags & PFO_PREC) && (drcv.oflags & PFO_S))
+		{
+			if (ft_strlen(*astr) > drcv.pv)
+			{
+				hold = *astr;
+				*astr = ft_strsub(hold, 0, drcv.pv);
+				ft_memdel((void **)&hold);
+			}
 		}
 	return (*astr);
 }
