@@ -93,8 +93,11 @@ SRC_FILES = ft_abs.c \
 			ft_wordcount.c \
 			ft_wstrcpy.c \
 			ft_wstrdup.c \
+			ft_wstrffjoin.c \
+			ft_wstrjoin.c \
 			ft_wstrlen.c \
 			ft_wstrnew.c \
+			ft_wstrsub.c \
 			get_next_line.c
 OBJ = $(SRC_FILES:%.c=$(OBJ_DIR)%.o)
 HEADER = $(INC_DIR)/libft.h

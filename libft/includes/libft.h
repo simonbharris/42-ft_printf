@@ -125,5 +125,8 @@ size_t			ft_wstrlen(const wchar_t *s);
 wchar_t			*ft_wstrnew(size_t size);
 wchar_t			*ft_wstrcpy(wchar_t *dst, const wchar_t *src);
 int				ft_max(int i, int j);
+wchar_t			*ft_wstrjoin(wchar_t const *s1, wchar_t const *s2);
+wchar_t			*ft_wstrffjoin(wchar_t **dst, wchar_t **src);
+wchar_t			*ft_wstrsub(wchar_t const *s, unsigned int start, size_t len);
 
 #endif

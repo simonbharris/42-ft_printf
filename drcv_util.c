@@ -58,3 +58,13 @@ char *gen_padding(int len, int c)
 		out[len] = c;
 	return (out);
 }
+
+wchar_t *gen_wpadding(int len, wchar_t c)
+{
+	wchar_t *out;
+
+	out = ft_wstrnew(len);
+	while (len-- > 0)
+		out[len] = c;
+	return (out);
+}

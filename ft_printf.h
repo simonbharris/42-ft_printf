@@ -68,6 +68,7 @@
 #define PFO_LL		0x000500
 #define PFO_DIOUX	0x7c0000
 #define PFO_SC		0x810000
+#define PFO_DI		0x0c0000
 
 /*
 ** s_pfdir (aka struct printf_directive)
@@ -95,6 +96,7 @@ int			put_drcv(t_pfdrcv drcv, va_list ap);
 void		skip_atoi(const char **str);
 t_pfdrcv	initpfdir(void);
 char		*gen_padding(int len, int c);
+wchar_t		*gen_wpadding(int len, wchar_t c);
 
 /*
 ** Functions to handle flags.
@@ -108,5 +110,10 @@ char		*pf_s(t_pfdrcv drcv, va_list ap);
 char		*pf_c(t_pfdrcv drcv, va_list ap);
 char		*pf_p(t_pfdrcv drcv, va_list ap);
 char		*pf_prec(t_pfdrcv drcv, char **astr);
+char		*pf_zero(t_pfdrcv drcv, char **astr);
+char		*pf_pad(t_pfdrcv drcv, char **astr);
+char		*pf_lpad(t_pfdrcv drcv, char **astr);
+char		*pf_sign(t_pfdrcv drcv, char **astr);
+char		*pf_space(t_pfdrcv drcv, char **astr);
 
 #endif

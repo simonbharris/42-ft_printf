@@ -43,7 +43,7 @@ char *dispatcher(t_pfdrcv drcv, va_list ap)
 		return (pf_dioux(drcv, ap));
 	else if (drcv.oflags & PFO_S)
 		return (pf_s(drcv, ap));
-	else if (drcv.oflags == PFO_P)
+	else if (drcv.oflags & PFO_P)
 		return (pf_p(drcv, ap));
 	else if (drcv.oflags & PFO_C)
 		return (pf_c(drcv, ap));
@@ -57,13 +57,23 @@ int		put_drcv(t_pfdrcv drcv, va_list ap)
 
 	if ((str = dispatcher(drcv, ap)) == NULL)
 		return (0);
-	len = ft_strlen(str);
 	if (drcv.oflags & PFO_ALT || drcv.oflags & PFO_PREC || drcv.oflags & PFO_P)
 		pf_prec(drcv, &str);
+	else if (drcv.oflags & PFO_PAD0 && !(drcv.oflags & PFO_LPD))
+		pf_zero(drcv, &str);
+	if (drcv.oflags & PFO_SIGN)
+		pf_sign(drcv, &str);
+	if (drcv.oflags & PFO_LPD && drcv.mfw > (int)ft_strlen(str))
+		pf_lpad(drcv, &str);
+	else if (drcv.mfw > (int)ft_strlen(str))
+		pf_pad(drcv, &str);
+	else if (drcv.oflags & PFO_SPC)
+		pf_space(drcv, &str);
 	if ((drcv.oflags & PFO_SC) && (drcv.oflags & PFO_L))
 		ft_putwstr((wchar_t *)str);
 	else
 		ft_putstr(str);
+	len = ft_strlen(str);
 	ft_memdel((void **)&str);
 	return (len);
 }

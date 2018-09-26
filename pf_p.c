@@ -16,9 +16,13 @@ char *pf_p(t_pfdrcv drcv, va_list ap)
 {
 	size_t i;
 	
-	if (sizeof(void *) == 8)
-		i = va_arg(ap, unsigned long);
-	else
-		i = va_arg(ap, unsigned int);
+	i = 0;
+	if (drcv.oflags & PFO_P)
+	{
+		if (sizeof(void *) == 8)
+			i = va_arg(ap, unsigned long);
+		else
+			i = va_arg(ap, unsigned int);
+	}
 	return (ft_itoabase(i, "0123456789abcdef"));
 }

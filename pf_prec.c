@@ -13,16 +13,6 @@
 #include "ft_printf.h"
 
 /*
-     o   An optional precision, in the form of a period . followed by an optional digit string.  If the digit
-         string is omitted, the precision is taken as zero.  This gives the minimum number of digits to appear
-         for d, i, o, u, x, and X conversions, the number of digits to appear after the decimal-point for a, A,
-         e, E, f, and F conversions, the maximum number of significant digits for g and G conversions, or the
-         maximum number of characters to be printed from a string for s conversions.
-*/
-
-
-
-/*
 ** is_zero
 ** Since my atoi doesn't work with hex, this just sees if the
 ** string only contains zeros, if it does, the represented value is zero.
@@ -71,14 +61,13 @@ static char *o_prepend(t_pfdrcv drcv, char **astr)
 	return (*astr);
 }
 
-// ! Non-numeric datatypes not yet supported.
 char *pf_prec(t_pfdrcv drcv, char **astr)
 {
 	char *hold;
 
 		if ((drcv.oflags & PFO_DIOUX) || (drcv.oflags & PFO_P))
 		{
-			if (drcv.oflags & PFO_PREC && ft_strlen(*astr) < drcv.pv)
+			if (drcv.oflags & PFO_PREC && (int)ft_strlen(*astr) < drcv.pv)
 			{
 				hold = gen_padding(drcv.pv - ft_strlen(*astr), '0');
 				*astr = ft_strffjoin(&hold, astr);
@@ -90,7 +79,13 @@ char *pf_prec(t_pfdrcv drcv, char **astr)
 		}
 		else if ((drcv.oflags & PFO_PREC) && (drcv.oflags & PFO_S))
 		{
-			if (ft_strlen(*astr) > drcv.pv)
+			if ((drcv.oflags & PFO_L) && (int)ft_wstrlen((wchar_t *)*astr) > drcv.pv)
+			{
+				hold = *astr;
+				*astr = (char *)ft_wstrsub((wchar_t *)hold, 0, drcv.pv);
+				ft_memdel((void **)&hold);
+			}
+			if ((int)ft_strlen(*astr) > drcv.pv)
 			{
 				hold = *astr;
 				*astr = ft_strsub(hold, 0, drcv.pv);
