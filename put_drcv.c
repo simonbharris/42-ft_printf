@@ -40,27 +40,6 @@ char *dispatcher(t_pfdrcv *drcv, va_list ap)
 	return (NULL);
 }
 
-static void pf_putfmt(t_pfdrcv drcv, char *str)
-{
-	if ((drcv.oflags & PFO_S) && (drcv.oflags & PFO_L))
-		ft_putwstr((wchar_t *)str);
-	else if ((drcv.oflags & PFO_C))
-		if (drcv.oflags & PFO_LPD)
-		{
-			if (drcv.oflags & PFO_NULB)
-				write(1, "\0", 1);
-			write(1, str, drcv.mfw > 1 ? drcv.mfw - 1 : 1);
-		}
-		else
-		{
-			write(1, str, drcv.mfw > 1 ? drcv.mfw - 1 : 1);
-			if (drcv.oflags & PFO_NULB)
-				write(1, "\0", 1);
-		}
-	else
-		ft_putstr(str);
-}
-
 static void applyfmt(t_pfdrcv drcv, char **astr)
 {
 	if (drcv.oflags & PFO_ALT || drcv.oflags & PFO_PREC || drcv.oflags & PFO_P)
@@ -76,6 +55,28 @@ static void applyfmt(t_pfdrcv drcv, char **astr)
 	if (drcv.oflags & PFO_SPC)
 		pf_space(drcv, astr);
 }
+
+static void pf_putfmt(t_pfdrcv drcv, char *str)
+{
+	if ((drcv.oflags & PFO_S) && (drcv.oflags & PFO_L))
+		ft_putwstr((wchar_t *)str);
+	else if ((drcv.oflags & PFO_C))
+		if (drcv.oflags & PFO_LPD)
+		{
+			if (drcv.oflags & PFO_NULB)
+				write(1, "\0", 1);
+			ft_putstr(str);
+		}
+		else
+		{
+			ft_putstr(str);
+			if (drcv.oflags & PFO_NULB)
+				write(1, "\0", 1);
+		}
+	else
+		ft_putstr(str);
+}
+
 
 int		put_drcv(t_pfdrcv drcv, va_list ap)
 {
