@@ -53,6 +53,8 @@ static void pf_prec_n(t_pfdrcv drcv, char **astr, char **hold)
 	}
 	else if (drcv.oflags & PFO_P)
 		*astr = ft_strcfjoin("0x", astr);
+	else if (drcv.oflags & PFO_B)
+		*astr = ft_strcfjoin("0b", astr);
 	else if (drcv.oflags & PFO_O && drcv.oflags & PFO_ALT)
 		if (**astr != '0')
 			*astr = ft_strcfjoin("0", astr);
@@ -92,6 +94,6 @@ char *pf_prec(t_pfdrcv drcv, char **astr)
 		if ((drcv.oflags & (PFO_DIOUXB | PFO_P)))
 			pf_prec_n(drcv, astr, &hold);
 		else if ((drcv.oflags & PFO_PREC) && (drcv.oflags & PFO_S))
-			pf_prec_s(drcv, astr, hold);
+			pf_prec_s(drcv, astr, &hold);
 	return (*astr);
 }

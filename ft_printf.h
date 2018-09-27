@@ -71,7 +71,7 @@
 
 #define PFO_HH		0x000300
 #define PFO_LL		0x000500
-#define PFO_DIOUXB	0x7c4000
+#define PFO_DIOUXB	0x7c8000
 #define PFO_SC		0x810000
 #define PFO_DI		0x0c0000
 
