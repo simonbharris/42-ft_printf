@@ -38,7 +38,8 @@ int			ft_printf(const char *format, ...)
 			}
 			else
 			{
-				drcv = get_drcv(&format);
+				drcv = get_drcv(format);
+				while (!ft_strchr("sSpdDioOuUxXcCb", *format++));
 				numwrite += put_drcv(drcv, ap);
 				continue ;
 			}

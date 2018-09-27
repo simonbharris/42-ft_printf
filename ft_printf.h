@@ -96,7 +96,7 @@ int			ft_printf(const char *format, ...);
 ** Utilities
 */
 
-t_pfdrcv	get_drcv(const char **format);
+t_pfdrcv		get_drcv(const char *format);
 int			put_drcv(t_pfdrcv drcv, va_list ap);
 void		skip_atoi(const char **str);
 t_pfdrcv	initpfdir(void);

@@ -115,19 +115,19 @@ static void		set_type(t_pfdrcv *drcv, const char **format)
 ** non-option byte.
 */
 
-t_pfdrcv		get_drcv(const char **format)
+t_pfdrcv		get_drcv(const char *format)
 {
 	t_pfdrcv drcv;
 
 	drcv = initpfdir();
-	while (**format && !ft_strchr("sSpdDioOuUxXcCb", (int)**format))
+	while (*format && !ft_strchr("sSpdDioOuUxXcCb", (int)*format))
 	{
-		set_opt(&drcv, **format);
-		set_mfw_prec(&drcv, format);
-		set_lmod(&drcv, format);
-		*format += 1;
+		set_opt(&drcv, *format);
+		set_mfw_prec(&drcv, &format);
+		set_lmod(&drcv, &format);
+		format += 1;
 	}
-	set_type(&drcv, format);
-	*format += 1;
+	set_type(&drcv, &format);
+	format += 1;
 	return (drcv);
 }
