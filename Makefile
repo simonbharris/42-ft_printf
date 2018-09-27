@@ -97,7 +97,7 @@ $(LIBFT):
 $(OBJ): %.o : %.c
 	$(CC) $(FLAGS) -c $(INC) -o $@ $<
 
-$(LIBFTOBJ) : libft/obj/%.o : libft/src/%.c
+$(LIBFTOBJ) : libft/obj/%.o : libft/src/%.c : libft
 	$(CC) $(FLAGS) -c $(INC) -o $@ $<
 
 # debug: $(LIBFT)

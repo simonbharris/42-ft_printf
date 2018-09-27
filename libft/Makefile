@@ -112,21 +112,21 @@ ARFLAGS = rcs
 all: mkdir $(NAME) 
 
 $(NAME): $(OBJ)
-	@$(AR) $(ARFLAGS) $(NAME) $(OBJ)
+	$(AR) $(ARFLAGS) $(NAME) $(OBJ)
 
 $(OBJ): $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@$(CC) $(CFLAGS) -I$(INC_DIR) -o $@ $<
+	$(CC) $(CFLAGS) -I$(INC_DIR) -o $@ $<
 
 mkdir: $(OBJ_DIR)
 	
 $(OBJ_DIR):
-	@mkdir obj
+	mkdir obj
 
 clean:
-	@rm -Rf $(OBJ_DIR)
+	rm -Rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all 
 
