@@ -61,10 +61,9 @@ LIBFT_FILES = \
 			ft_putwstr.c \
 			ft_putchar.c \
 			ft_wstrsub.c \
-			ft_strnew.c \
 			ft_memset.c \
 			ft_memalloc.c \
-			fT_strcpy.c \
+			ft_strcpy.c \
 			ft_strjoin.c
 
 LIBFT_SRC = $(LIBFT_FILES:%=$(LIBFT_DIR)/src/%)
