@@ -34,7 +34,7 @@ int			ft_printf(const char *format, ...)
 			if (format[1] == '%')
 			{
 				ft_putchar('%');
-				format += 2;
+				format += 1;
 			}
 			else
 			{
