@@ -43,6 +43,8 @@
 	}
 	else if ((drcv.oflags & PFO_LPD) && drcv.mfw > (int)ft_strlen(*astr))
 	{
+		if (drcv.oflags & (PFO_D | PFO_I) && drcv.oflags & PFO_SPC && !(drcv.oflags & PFO_SIGN) && drcv.mfw > 0)
+			drcv.mfw -= 1;
 		pad = gen_padding(drcv.mfw - ft_strlen(*astr), ' ');
 		*astr = ft_strffjoin(astr, &pad);
 	}
