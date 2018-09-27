@@ -115,7 +115,7 @@ $(NAME): $(OBJ)
 	$(AR) $(ARFLAGS) $(NAME) $(OBJ)
 
 $(OBJ): $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(CC) $(CFLAGS) -I$(INC_DIR) -o $@ $<
+	$(CC) $(CFLAGS) -I$(INC_DIR) $< -o $@
 
 mkdir: $(OBJ_DIR)
 	

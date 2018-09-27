@@ -15,7 +15,7 @@ NAME = libftprintf.a
 
 # Directories
 SRC_DIR = ./
-OBJ_DIR = ./
+OBJ_DIR = ./obj/
 INC_DIR = ./libft/includes/
 LIBFT_DIR = libft
 
@@ -84,33 +84,36 @@ LIB = -L$(LIBFT_DIR) -lft
 AR = ar
 ARFLAGS = rcs
 
-all: $(NAME)
+all: mkdir $(NAME)
 
 $(NAME): libft $(OBJ)
 	$(AR) $(ARFLAGS) $(NAME) $(OBJ) $(LIBFTOBJ)
 
 libft: $(LIBFT)
 
+mkdir : $(OBJ_DIR)
+
+$(OBJ_DIR):
+	mkdir obj
+
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
-$(OBJ): %.o : %.c
-	$(CC) $(FLAGS) -c $(INC) -o $@ $<
+$(OBJ): $(OBJ_DIR)%.o : $(SRC_DIR)%.c
+	$(CC) $(FLAGS) -c $(INC) $< -o $@ 
 
 $(LIBFTOBJ) : libft/obj/%.o : libft/src/%.c : libft
-	$(CC) $(FLAGS) -c $(INC) -o $@ $<
-
-# debug: $(LIBFT)
-# 	$(CC) -g $(INC) $(LIB) $(SRC) -o $(NAME)
+	$(CC) $(FLAGS) -c $(INC) $< -o $@ 
 
 clean:
 	rm -f $(OBJ)
 	make clean -C $(LIBFT_DIR)
+	rm -Rf $(OBJ_DIR)
+	make fclean -C $(LIBFT_DIR)
 
 fclean: clean
 	rm -f $(NAME)
-	make fclean -C $(LIBFT_DIR)
 
 re: fclean all
 
-.PHONY : all, re, clean, fclean, libft
+.PHONY : all, re, clean, fclean, libft, mkdir
