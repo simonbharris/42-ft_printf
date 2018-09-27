@@ -16,6 +16,11 @@ char *pf_sign(t_pfdrcv drcv, char **astr)
 {
 	if ((drcv.oflags & PFO_SIGN) && (drcv.oflags & PFO_DI)
 	&& ft_atoi(*astr) >= 0)
-		*astr = ft_strcfjoin("+", astr);
+	{
+		if (**astr == '0')
+			**astr = '+';
+		else
+			*astr = ft_strcfjoin("+", astr);
+	}
 	return(*astr);
 }
