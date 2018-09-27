@@ -16,7 +16,7 @@
 ** Dispatches for numeric types.
 */
 
-char *pf_dioux(t_pfdrcv drcv, va_list ap)
+char		*pf_dioux(t_pfdrcv drcv, va_list ap)
 {
 	if (drcv.oflags & (PFO_D | PFO_I))
 		return (pf_di(drcv, ap));
@@ -36,7 +36,7 @@ char *pf_dioux(t_pfdrcv drcv, va_list ap)
 ** Passes the returned char* up
 */
 
-char *dispatcher(t_pfdrcv *drcv, va_list ap)
+char		*dispatcher(t_pfdrcv *drcv, va_list ap)
 {
 	if (drcv->oflags & PFO_DIOUXB)
 		return (pf_dioux(*drcv, ap));
@@ -54,7 +54,7 @@ char *dispatcher(t_pfdrcv *drcv, va_list ap)
 ** the directive(drcv)
 */
 
-static void applyfmt(t_pfdrcv drcv, char **astr)
+static void	applyfmt(t_pfdrcv drcv, char **astr)
 {
 	if (drcv.oflags & PFO_ALT || drcv.oflags & PFO_PREC || drcv.oflags & PFO_P)
 		pf_prec(drcv, astr);
@@ -74,7 +74,7 @@ static void applyfmt(t_pfdrcv drcv, char **astr)
 ** Prints the string to stdout. Checks some flags for special cases.
 */
 
-static void pf_putfmt(t_pfdrcv drcv, char *str)
+static void		pf_putfmt(t_pfdrcv drcv, char *str)
 {
 	if ((drcv.oflags & PFO_S) && (drcv.oflags & PFO_L))
 		ft_putwstr((wchar_t *)str);
@@ -100,10 +100,10 @@ static void pf_putfmt(t_pfdrcv drcv, char *str)
 ** then returns bytes printed.
 */
 
-int		put_drcv(t_pfdrcv drcv, va_list ap)
+int				put_drcv(t_pfdrcv drcv, va_list ap)
 {
-	char *str;
-	int len;
+	char	*str;
+	int		len;
 
 	if ((str = dispatcher(&drcv, ap)) == NULL)
 		return (0);

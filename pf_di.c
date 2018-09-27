@@ -16,7 +16,7 @@
 ** Obtains parameter as a decimal / integer
 */
 
-char *pf_di(t_pfdrcv drcv, va_list ap)
+char	*pf_di(t_pfdrcv drcv, va_list ap)
 {
 	intmax_t i;
 

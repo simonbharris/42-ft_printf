@@ -17,9 +17,10 @@
 ** Depends on the given flags.
 */
 
- char *pf_pad(t_pfdrcv drcv, char **astr)
+ char	*pf_pad(t_pfdrcv drcv, char **astr)
  {
 	char *pad;
+
 	if (drcv.oflags & PFO_S && drcv.oflags & PFO_L)
 	{
 		if(drcv.mfw > (int)ft_wstrlen((wchar_t *)*astr))
@@ -37,9 +38,10 @@
 	return (*astr);
  }
 
-  char *pf_lpad(t_pfdrcv drcv, char **astr)
+  char	*pf_lpad(t_pfdrcv drcv, char **astr)
  {
 	char *pad;
+	
 	if ((drcv.oflags & PFO_LPD) && (drcv.oflags & PFO_S)
 	&& (drcv.oflags & PFO_L) && (drcv.mfw > (int)ft_wstrlen((wchar_t *)*astr)))
 	{

@@ -16,10 +16,11 @@
 ** Obtains the parameter as a string or wide string.
 */
 
-char *pf_s(t_pfdrcv drcv, va_list ap)
+char	*pf_s(t_pfdrcv drcv, va_list ap)
 {
-	char *str;
-	wchar_t *wstr;
+	char	*str;
+	wchar_t	*wstr;
+
 	if (drcv.oflags & PFO_L)
 		{
 			MALCHECK(str = (char *)ft_wstrdup((wchar_t *)va_arg(ap, wchar_t *)))

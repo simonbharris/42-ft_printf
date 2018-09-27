@@ -16,7 +16,7 @@
 ** Pads the given string address with zeros.
 */
 
-char *pf_zero(t_pfdrcv drcv, char **astr)
+char	*pf_zero(t_pfdrcv drcv, char **astr)
 {
 	char *pad;
 

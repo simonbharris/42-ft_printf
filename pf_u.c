@@ -16,7 +16,7 @@
 ** Obtains the given parameter as an unsigned value.
 */
 
-char *pf_u(t_pfdrcv drcv, va_list ap)
+char	*pf_u(t_pfdrcv drcv, va_list ap)
 {
 	size_t i;
 

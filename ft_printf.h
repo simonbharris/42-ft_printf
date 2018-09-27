@@ -38,42 +38,42 @@
 ** 008000 == Exception, is a type mod.
 */
 
-#define PFO_ALT		0x000001
-#define PFO_PAD0	0x000002
-#define PFO_SPC		0x000004
-#define PFO_LPD		0x000008
+# define PFO_ALT	0x000001
+# define PFO_PAD0	0x000002
+# define PFO_SPC	0x000004
+# define PFO_LPD	0x000008
 
-#define PFO_SIGN	0x000010
-#define PFO_PREC	0x000020
+# define PFO_SIGN	0x000010
+# define PFO_PREC	0x000020
 
-#define PFO_2MOD	0x000100
-#define PFO_H		0x000200
-#define PFO_L		0x000400
-#define PFO_J		0x000800
-#define PFO_Z		0x001000
-#define PFO_CAPS	0x002000
-#define PFO_NULB	0x004000
+# define PFO_2MOD	0x000100
+# define PFO_H		0x000200
+# define PFO_L		0x000400
+# define PFO_J		0x000800
+# define PFO_Z		0x001000
+# define PFO_CAPS	0x002000
+# define PFO_NULB	0x004000
 
-#define PFO_B		0x008000
+# define PFO_B		0x008000
 
-#define PFO_S		0x010000
-#define PFO_P		0x020000
-#define PFO_D		0x040000
-#define PFO_I		0x080000
-#define PFO_O		0x100000
-#define PFO_U		0x200000
-#define PFO_X		0x400000
-#define PFO_C		0x800000
+# define PFO_S		0x010000
+# define PFO_P		0x020000
+# define PFO_D		0x040000
+# define PFO_I		0x080000
+# define PFO_O		0x100000
+# define PFO_U		0x200000
+# define PFO_X		0x400000
+# define PFO_C		0x800000
 
 /*
 ** Compound flags
 */
 
-#define PFO_HH		0x000300
-#define PFO_LL		0x000500
-#define PFO_DIOUXB	0x7c8000
-#define PFO_SC		0x810000
-#define PFO_DI		0x0c0000
+# define PFO_HH		0x000300
+# define PFO_LL		0x000500
+# define PFO_DIOUXB	0x7c8000
+# define PFO_SC		0x810000
+# define PFO_DI		0x0c0000
 
 /*
 ** s_pfdir (aka struct printf_directive)
@@ -96,7 +96,7 @@ int			ft_printf(const char *format, ...);
 ** Utilities
 */
 
-t_pfdrcv		get_drcv(const char *format);
+t_pfdrcv	get_drcv(const char *format);
 int			put_drcv(t_pfdrcv drcv, va_list ap);
 void		skip_atoi(const char **str);
 t_pfdrcv	initpfdir(void);

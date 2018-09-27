@@ -17,7 +17,7 @@
 ** as hex to be formated as a memory address. 
 */
 
-char *pf_p(t_pfdrcv drcv, va_list ap)
+char	*pf_p(t_pfdrcv drcv, va_list ap)
 {
 	size_t i;
 	

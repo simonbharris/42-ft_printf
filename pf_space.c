@@ -17,7 +17,7 @@
 ** the value is negative.
 */
 
-char *pf_space(t_pfdrcv drcv, char **astr)
+char	*pf_space(t_pfdrcv drcv, char **astr)
 {
 	if ((drcv.oflags & PFO_SPC) && !(drcv.oflags & PFO_SIGN)
 	&& (drcv.oflags & PFO_DI)

@@ -18,7 +18,7 @@
 ** string only contains zeros, if it does, the represented value is zero.
 */
 
-static int is_hexzero(char *str)
+static int	is_hexzero(char *str)
 {
 	while (*str)
 		if (*str++ != '0')
@@ -34,7 +34,7 @@ static int is_hexzero(char *str)
 ** (Handles diouxbp types, with special cases for oxp)
 */
 
-static void pf_prec_n(t_pfdrcv drcv, char **astr, char **hold)
+static void	pf_prec_n(t_pfdrcv drcv, char **astr, char **hold)
 {
 	if (drcv.oflags & PFO_PREC && (int)ft_strlen(*astr) < drcv.pv)
 	{
@@ -66,7 +66,7 @@ static void pf_prec_n(t_pfdrcv drcv, char **astr, char **hold)
 ** than the precision value (drcv.pv)
 */
 
-static void pf_prec_s(t_pfdrcv drcv, char **astr, char **hold)
+static void	pf_prec_s(t_pfdrcv drcv, char **astr, char **hold)
 {
 	if ((drcv.oflags & PFO_L) && (int)ft_wstrlen((wchar_t *)*astr) > drcv.pv)
 	{
@@ -87,7 +87,7 @@ static void pf_prec_s(t_pfdrcv drcv, char **astr, char **hold)
 ** Directs to either numeric precision, or string precision functions.
 */
 
-char *pf_prec(t_pfdrcv drcv, char **astr)
+char		*pf_prec(t_pfdrcv drcv, char **astr)
 {
 	char *hold;
 

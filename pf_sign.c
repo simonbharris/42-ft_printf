@@ -17,7 +17,7 @@
 ** if it is positive.
 */
 
-char *pf_sign(t_pfdrcv drcv, char **astr)
+char	*pf_sign(t_pfdrcv drcv, char **astr)
 {
 	if ((drcv.oflags & PFO_SIGN) && (drcv.oflags & PFO_DI)
 	&& ft_atoi(*astr) >= 0)

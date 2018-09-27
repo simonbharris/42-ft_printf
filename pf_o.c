@@ -16,7 +16,7 @@
 ** Obtains the parameter as an unsigned value, and returns it as octal.
 */
 
-char *pf_o(t_pfdrcv drcv, va_list ap)
+char	*pf_o(t_pfdrcv drcv, va_list ap)
 {
 	size_t i;
 

@@ -35,8 +35,8 @@ static int putfmt(const char **afmt, va_list ap, int *numwrite)
 
 int			ft_printf(const char *format, ...)
 {
-	va_list ap;
-	int numwrite;
+	va_list	ap;
+	int		numwrite;
 
 	numwrite = 0;
 	va_start(ap, format);
