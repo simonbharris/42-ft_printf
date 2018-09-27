@@ -87,32 +87,32 @@ ARFLAGS = rcs
 all: mkdir $(NAME)
 
 $(NAME): libft $(OBJ)
-	$(AR) $(ARFLAGS) $(NAME) $(OBJ) $(LIBFTOBJ)
+	@$(AR) $(ARFLAGS) $(NAME) $(OBJ) $(LIBFTOBJ)
 
 libft: $(LIBFT)
 
 mkdir : $(OBJ_DIR)
 
 $(OBJ_DIR):
-	mkdir obj
+	@mkdir obj
 
 $(LIBFT):
-	make -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR)
 
 $(OBJ): $(OBJ_DIR)%.o : $(SRC_DIR)%.c
-	$(CC) $(FLAGS) -c $(INC) $< -o $@ 
+	@$(CC) $(FLAGS) -c $(INC) $< -o $@ 
 
 $(LIBFTOBJ) : libft/obj/%.o : libft/src/%.c : libft
-	$(CC) $(FLAGS) -c $(INC) $< -o $@ 
+	@$(CC) $(FLAGS) -c $(INC) $< -o $@ 
 
 clean:
-	rm -f $(OBJ)
-	make clean -C $(LIBFT_DIR)
-	rm -Rf $(OBJ_DIR)
-	make fclean -C $(LIBFT_DIR)
+	@rm -f $(OBJ)
+	@make clean -C $(LIBFT_DIR)
+	@rm -Rf $(OBJ_DIR)
+	@make fclean -C $(LIBFT_DIR)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
