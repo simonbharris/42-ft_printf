@@ -24,7 +24,7 @@ char *pf_c(t_pfdrcv *drcv, va_list ap)
 		wc = va_arg(ap, wchar_t);
 		ws = ft_wstrdup(&wc);
 		ws[1] = L'\x0';
-		if (ws[0] == L'\x0')
+		if (ws[0] == 0)
 			drcv->oflags |= PFO_NULB;
 		return ((char *)ws);
 	}
@@ -32,6 +32,8 @@ char *pf_c(t_pfdrcv *drcv, va_list ap)
 	{
 		MALCHECK(str = ft_strnew(1))
 		str[0] = va_arg(ap, int);
+		if (str[0] == 0)
+			drcv->oflags |= PFO_NULB;
 		return(str);
 	}
 }

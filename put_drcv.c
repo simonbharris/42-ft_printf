@@ -52,6 +52,10 @@ char *dispatcher(t_pfdrcv drcv, va_list ap)
 	return (NULL);
 }
 
+/*
+! Nul-byte flag does not stick when assigned in pf_c.c 
+*/
+
 int		put_drcv(t_pfdrcv drcv, va_list ap)
 {
 	char *str;
@@ -73,11 +77,20 @@ int		put_drcv(t_pfdrcv drcv, va_list ap)
 		pf_space(drcv, &str);
 	if ((drcv.oflags & PFO_S) && (drcv.oflags & PFO_L))
 		ft_putwstr((wchar_t *)str);
-	else if ((drcv.oflags & PFO_C && drcv.oflags & PFO_L))
+	else if ((drcv.oflags & PFO_C))
 	{
-		write(1, str, drcv.mfw > 1 ? drcv.mfw - 1 : 1);
-		if (PFO_NULB)
-			write(1, L"\x0", 1);
+		if (drcv.oflags & PFO_LPD)
+		{
+			if (drcv.oflags & PFO_NULB)
+				write(1, "\0", 1);
+			write(1, str, drcv.mfw > 1 ? drcv.mfw - 1 : 1);
+		}
+		else
+		{
+			write(1, str, drcv.mfw > 1 ? drcv.mfw - 1 : 1);
+			if (drcv.oflags & PFO_NULB)
+				write(1, "\0", 1);
+		}
 	}
 	else
 		ft_putstr(str);
