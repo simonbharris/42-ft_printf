@@ -12,6 +12,11 @@
 
 #include "ft_printf.h"
 
+/*
+** Pads the given string address on the left or right side,
+** Depends on the given flags.
+*/
+
  char *pf_pad(t_pfdrcv drcv, char **astr)
  {
 	char *pad;

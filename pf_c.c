@@ -12,6 +12,10 @@
 
 #include "ft_printf.h"
 
+/*
+** Obtains the parameter as a (int)char or wchar_t
+*/
+
 char *pf_c(t_pfdrcv *drcv, va_list ap)
 {
 	char *str;

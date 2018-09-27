@@ -12,6 +12,11 @@
 
 #include "ft_printf.h"
 
+/*
+** Ensures that there is left padding enough reserved for a '-' sign if
+** the value is negative.
+*/
+
 char *pf_space(t_pfdrcv drcv, char **astr)
 {
 	if ((drcv.oflags & PFO_SPC) && !(drcv.oflags & PFO_SIGN)

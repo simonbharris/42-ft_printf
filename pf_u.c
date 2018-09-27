@@ -12,6 +12,10 @@
 
 #include "ft_printf.h"
 
+/*
+** Obtains the given parameter as an unsigned value.
+*/
+
 char *pf_u(t_pfdrcv drcv, va_list ap)
 {
 	size_t i;

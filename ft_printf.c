@@ -12,17 +12,30 @@
 
 #include "ft_printf.h"
 
-
-// TODO: 
-// MFW (Minimum field width value aka right-aligned padding)
-// ' ' (Pad with space if numeric positive)
-// '+' (Explicit sign for numeric types)
-// '-' (Left-aligned padding)
+static int putfmt(const char **afmt, va_list ap, int *numwrite)
+{
+	t_pfdrcv drcv;
+	
+	if ((*afmt)[1] == '%')
+	{
+		ft_putchar('%');
+		*afmt += 1;
+		return (0);
+	}
+	else
+	{
+		drcv = get_drcv(*afmt);
+		while (!ft_strchr("sSpdDioOuUxXcCb", **afmt))
+			*afmt += 1;
+		*afmt += 1;
+		numwrite += put_drcv(drcv, ap);
+		return (1);
+	}
+}
 
 int			ft_printf(const char *format, ...)
 {
 	va_list ap;
-	t_pfdrcv drcv;
 	int numwrite;
 
 	numwrite = 0;
@@ -31,18 +44,8 @@ int			ft_printf(const char *format, ...)
 	{
 		if (*format == '%')
 		{
-			if (format[1] == '%')
-			{
-				ft_putchar('%');
-				format += 1;
-			}
-			else
-			{
-				drcv = get_drcv(format);
-				while (!ft_strchr("sSpdDioOuUxXcCb", *format++));
-				numwrite += put_drcv(drcv, ap);
+			if (putfmt(&format, ap, &numwrite))
 				continue ;
-			}
 		}
 		else
 			ft_putchar(*format);

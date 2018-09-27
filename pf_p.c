@@ -12,6 +12,11 @@
 
 #include "ft_printf.h"
 
+/*
+** Obtains parameter as an unsigned value, and returns it in
+** as hex to be formated as a memory address. 
+*/
+
 char *pf_p(t_pfdrcv drcv, va_list ap)
 {
 	size_t i;

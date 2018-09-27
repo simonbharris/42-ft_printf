@@ -12,9 +12,13 @@
 
 #include "ft_printf.h"
 
+/*
+** Dispatches for numeric types.
+*/
+
 char *pf_dioux(t_pfdrcv drcv, va_list ap)
 {
-	if (drcv.oflags & PFO_D || drcv.oflags & PFO_I)
+	if (drcv.oflags & (PFO_D | PFO_I))
 		return (pf_di(drcv, ap));
 	else if (drcv.oflags & PFO_O)
 		return (pf_o(drcv, ap));
@@ -26,6 +30,11 @@ char *pf_dioux(t_pfdrcv drcv, va_list ap)
 		return (pf_b(drcv, ap));
 	return (NULL);
 }
+
+/*
+** Dispatches the given directive(drcv) into one of the possible datatypes.
+** Passes the returned char* up
+*/
 
 char *dispatcher(t_pfdrcv *drcv, va_list ap)
 {
@@ -39,6 +48,11 @@ char *dispatcher(t_pfdrcv *drcv, va_list ap)
 		return (pf_c(drcv, ap));
 	return (NULL);
 }
+
+/*
+** Modifies the string passed by address with the format specified with
+** the directive(drcv)
+*/
 
 static void applyfmt(t_pfdrcv drcv, char **astr)
 {
@@ -55,6 +69,10 @@ static void applyfmt(t_pfdrcv drcv, char **astr)
 	if (drcv.oflags & PFO_SPC)
 		pf_space(drcv, astr);
 }
+
+/*
+** Prints the string to stdout. Checks some flags for special cases.
+*/
 
 static void pf_putfmt(t_pfdrcv drcv, char *str)
 {
@@ -77,6 +95,10 @@ static void pf_putfmt(t_pfdrcv drcv, char *str)
 		ft_putstr(str);
 }
 
+/*
+** Handles getting the param from va_list, modifying the returned char *, prints it,
+** then returns bytes printed.
+*/
 
 int		put_drcv(t_pfdrcv drcv, va_list ap)
 {

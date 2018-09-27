@@ -12,6 +12,11 @@
 
 #include "ft_printf.h"
 
+/*
+** '+' flag, ensures that the printed signed numeric is printing with a '+'
+** if it is positive.
+*/
+
 char *pf_sign(t_pfdrcv drcv, char **astr)
 {
 	if ((drcv.oflags & PFO_SIGN) && (drcv.oflags & PFO_DI)

@@ -12,6 +12,11 @@
 
 #include "ft_printf.h"
 
+/*
+** pf_b
+** Obtains the parameter in binary
+*/
+
 char *pf_b(t_pfdrcv drcv, va_list ap)
 {
 	size_t i;
