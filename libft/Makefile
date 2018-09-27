@@ -30,6 +30,7 @@ SRC_FILES = ft_abs.c \
 			ft_iswhitespace.c \
 			ft_itoa.c \
 			ft_itoabase.c \
+			ft_lltoa.c \
 			ft_lstadd.c \
 			ft_lstcount.c \
 			ft_lstdel.c \

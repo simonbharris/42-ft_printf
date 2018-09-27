@@ -128,5 +128,6 @@ int				ft_max(int i, int j);
 wchar_t			*ft_wstrjoin(wchar_t const *s1, wchar_t const *s2);
 wchar_t			*ft_wstrffjoin(wchar_t **dst, wchar_t **src);
 wchar_t			*ft_wstrsub(wchar_t const *s, unsigned int start, size_t len);
+char			*ft_lltoa(long long n);
 
 #endif

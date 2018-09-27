@@ -40,5 +40,5 @@ char *pf_di(t_pfdrcv drcv, va_list ap)
 		i = va_arg(ap, size_t);
 	else
 		i = va_arg(ap, int);
-	return (ft_itoa(i));
+	return (ft_lltoa(i));
 }
