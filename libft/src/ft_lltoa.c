@@ -19,13 +19,13 @@ static int	get_alloc_size(long long nbr)
 	i = 0;
 	if (nbr == 0)
 		return (1);
+	if (nbr < 0)
+		i++;
 	while (nbr)
 	{
 		i++;
 		nbr /= 10;
 	}
-	if (nbr < 0)
-		return (i + 2);
 	return (i + 1);
 }
 
