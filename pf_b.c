@@ -16,14 +16,14 @@ char *pf_b(t_pfdrcv drcv, va_list ap)
 {
 	size_t i;
 
-	if (drcv.oflags & PFO_HH)
+	if ((drcv.oflags & PFO_HH) == PFO_HH)
 		i = va_arg(ap, unsigned int);
 	else if (drcv.oflags & PFO_H)
 		i = va_arg(ap, unsigned int);
+	else if ((drcv.oflags & PFO_LL) == PFO_LL)
+		i = va_arg(ap, unsigned long long);
 	else if (drcv.oflags & PFO_L)
 		i = va_arg(ap, unsigned long);
-	else if (drcv.oflags & PFO_LL)
-		i = va_arg(ap, unsigned long long);
 	else if (drcv.oflags & PFO_J)
 		i = va_arg(ap, uintmax_t);
 	else if (drcv.oflags & PFO_Z)

@@ -40,10 +40,6 @@ char *dispatcher(t_pfdrcv *drcv, va_list ap)
 	return (NULL);
 }
 
-/*
-! Nul-byte flag does not stick when assigned in pf_c.c 
-*/
-
 static void pf_putfmt(t_pfdrcv drcv, char *str)
 {
 	if ((drcv.oflags & PFO_S) && (drcv.oflags & PFO_L))

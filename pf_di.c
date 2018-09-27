@@ -26,14 +26,14 @@ char *pf_di(t_pfdrcv drcv, va_list ap)
 {
 	intmax_t i;
 
-	if (drcv.oflags & PFO_HH)
+	if ((drcv.oflags & PFO_HH) == PFO_HH)
 		i = va_arg(ap, int);
 	else if (drcv.oflags & PFO_H)
 		i = va_arg(ap, int);
+	else if ((drcv.oflags & PFO_LL) == PFO_LL)
+		i = va_arg(ap, long long);
 	else if (drcv.oflags & PFO_L)
 		i = va_arg(ap, long);
-	else if (drcv.oflags & PFO_LL)
-		i = va_arg(ap, long long);
 	else if (drcv.oflags & PFO_J)
 		i = va_arg(ap, intmax_t);
 	else if (drcv.oflags & PFO_Z)
