@@ -23,6 +23,6 @@ wchar_t	*ft_wstrnew(size_t size)
 
 	if (NULL == (str = (wchar_t *)malloc(sizeof(wchar_t) * (size + 1))))
 		return (NULL);
-	ft_memset(str, 0, sizeof(wchar_t) * (size + 1));
+	ft_memset(str, L'\x0', sizeof(wchar_t) * (size + 1));
 	return (str);
 }

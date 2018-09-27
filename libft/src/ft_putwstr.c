@@ -24,7 +24,7 @@ void	ft_putwstr(wchar_t *wstr)
 	i = 0;
 	while (wstr[i])
 	{
-		write(1, &(wstr[i]), sizeof(wchar_t));
+		write(1, &(wstr[i]), 1);
 		i++;
 	}
 }
