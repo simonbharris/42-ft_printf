@@ -12,18 +12,6 @@
 
 #include "ft_printf.h"
 
-/*
-	? Modifier          d, i           o, u, x, X
-	  hh                signed char    unsigned char
-	* h                 short          unsigned short
-	  l (ell)           long           unsigned long
-	* ll (ell ell)      long long      unsigned long long
-	  j                 intmax_t       uintmax_t
-	* z                 (see note)     size_t
-*/
-
-// * # define PF_DFLAG "sSpdDioOuUxXcC"
-
 char *pf_dioux(t_pfdrcv drcv, va_list ap)
 {
 	if (drcv.oflags & PFO_D || drcv.oflags & PFO_I)
@@ -39,16 +27,16 @@ char *pf_dioux(t_pfdrcv drcv, va_list ap)
 	return (NULL);
 }
 
-char *dispatcher(t_pfdrcv drcv, va_list ap)
+char *dispatcher(t_pfdrcv *drcv, va_list ap)
 {
-	if (drcv.oflags & PFO_DIOUXB)
-		return (pf_dioux(drcv, ap));
-	else if (drcv.oflags & PFO_S)
-		return (pf_s(drcv, ap));
-	else if (drcv.oflags & PFO_P)
-		return (pf_p(drcv, ap));
-	else if (drcv.oflags & PFO_C)
-		return (pf_c(&drcv, ap));
+	if (drcv->oflags & PFO_DIOUXB)
+		return (pf_dioux(*drcv, ap));
+	else if (drcv->oflags & PFO_S)
+		return (pf_s(*drcv, ap));
+	else if (drcv->oflags & PFO_P)
+		return (pf_p(*drcv, ap));
+	else if (drcv->oflags & PFO_C)
+		return (pf_c(drcv, ap));
 	return (NULL);
 }
 
@@ -56,29 +44,11 @@ char *dispatcher(t_pfdrcv drcv, va_list ap)
 ! Nul-byte flag does not stick when assigned in pf_c.c 
 */
 
-int		put_drcv(t_pfdrcv drcv, va_list ap)
+static void pf_putfmt(t_pfdrcv drcv, char *str)
 {
-	char *str;
-	int len;
-
-	if ((str = dispatcher(drcv, ap)) == NULL)
-		return (0);
-	if (drcv.oflags & PFO_ALT || drcv.oflags & PFO_PREC || drcv.oflags & PFO_P)
-		pf_prec(drcv, &str);
-	else if (drcv.oflags & PFO_PAD0 && !(drcv.oflags & PFO_LPD))
-		pf_zero(drcv, &str);
-	if (drcv.oflags & PFO_SIGN)
-		pf_sign(drcv, &str);
-	if (drcv.oflags & PFO_LPD && drcv.mfw > (int)ft_strlen(str))
-		pf_lpad(drcv, &str);
-	else if (drcv.mfw > (int)ft_strlen(str))
-		pf_pad(drcv, &str);
-	if (drcv.oflags & PFO_SPC)
-		pf_space(drcv, &str);
 	if ((drcv.oflags & PFO_S) && (drcv.oflags & PFO_L))
 		ft_putwstr((wchar_t *)str);
 	else if ((drcv.oflags & PFO_C))
-	{
 		if (drcv.oflags & PFO_LPD)
 		{
 			if (drcv.oflags & PFO_NULB)
@@ -91,9 +61,35 @@ int		put_drcv(t_pfdrcv drcv, va_list ap)
 			if (drcv.oflags & PFO_NULB)
 				write(1, "\0", 1);
 		}
-	}
 	else
 		ft_putstr(str);
+}
+
+static void applyfmt(t_pfdrcv drcv, char **astr)
+{
+	if (drcv.oflags & PFO_ALT || drcv.oflags & PFO_PREC || drcv.oflags & PFO_P)
+		pf_prec(drcv, astr);
+	else if (drcv.oflags & PFO_PAD0 && !(drcv.oflags & PFO_LPD))
+		pf_zero(drcv, astr);
+	if (drcv.oflags & PFO_SIGN)
+		pf_sign(drcv, astr);
+	if (drcv.oflags & PFO_LPD && drcv.mfw > (int)ft_strlen(*astr))
+		pf_lpad(drcv, astr);
+	else if (drcv.mfw > (int)ft_strlen(*astr))
+		pf_pad(drcv, astr);
+	if (drcv.oflags & PFO_SPC)
+		pf_space(drcv, astr);
+}
+
+int		put_drcv(t_pfdrcv drcv, va_list ap)
+{
+	char *str;
+	int len;
+
+	if ((str = dispatcher(&drcv, ap)) == NULL)
+		return (0);
+	applyfmt(drcv, &str);
+	pf_putfmt(drcv, str);
 	len = ft_strlen(str);
 	ft_memdel((void **)&str);
 	return (len);

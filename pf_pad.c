@@ -38,12 +38,14 @@
 	if ((drcv.oflags & PFO_LPD) && (drcv.oflags & PFO_S)
 	&& (drcv.oflags & PFO_L) && (drcv.mfw > (int)ft_wstrlen((wchar_t *)*astr)))
 	{
-		pad = (char *)gen_wpadding(drcv.mfw - ft_wstrlen((wchar_t *)*astr), L' ');
+		pad = (char *)gen_wpadding(drcv.mfw -
+			ft_wstrlen((wchar_t *)*astr), L' ');
 		*astr = (char *)ft_wstrffjoin((wchar_t **)astr, (wchar_t **)&pad);
 	}
 	else if ((drcv.oflags & PFO_LPD) && drcv.mfw > (int)ft_strlen(*astr))
 	{
-		if (drcv.oflags & (PFO_D | PFO_I) && drcv.oflags & PFO_SPC && !(drcv.oflags & PFO_SIGN) && drcv.mfw > 0)
+		if (drcv.oflags & (PFO_D | PFO_I) && drcv.oflags & PFO_SPC
+		&& !(drcv.oflags & PFO_SIGN) && drcv.mfw > 0)
 			drcv.mfw -= 1;
 		pad = gen_padding(drcv.mfw - ft_strlen(*astr), ' ');
 		*astr = ft_strffjoin(astr, &pad);

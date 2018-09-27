@@ -14,7 +14,8 @@
 
 char *pf_space(t_pfdrcv drcv, char **astr)
 {
-	if ((drcv.oflags & PFO_SPC) && !(drcv.oflags & PFO_SIGN) && (drcv.oflags & PFO_DI)
+	if ((drcv.oflags & PFO_SPC) && !(drcv.oflags & PFO_SIGN)
+	&& (drcv.oflags & PFO_DI)
 	&& (**astr && **astr != ' ' && **astr != '-'))
 		*astr = ft_strcfjoin(" ", astr);
 	return (*astr);
