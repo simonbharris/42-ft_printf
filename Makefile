@@ -17,7 +17,7 @@ NAME = libftprintf.a
 SRC_DIR = ./
 OBJ_DIR = ./
 INC_DIR = ./libft/includes/
-LIBFT_DIR = ./libft
+LIBFT_DIR = libft
 
 # GNL files
 SRC_FILES = ft_printf.c \
@@ -36,24 +36,35 @@ SRC_FILES = ft_printf.c \
 			pf_pad.c \
 			pf_space.c \
 			pf_sign.c \
-			pf_b.c \
-			libft/obj/*
+			pf_b.c
 
-# LIBFT_FILES = ft_itoabase.c \
-# 			ft_wstrnew.c \
-# 			ft_wstrdup.c \
-# 			ft_itoa.c \
-# 			ft_strffjoin.c \
-# 			ft_strlen.c \
-# 			ft_wstrcpy.c \
-# 			ft_wstrlen.c \
-# 			ft_wstrsub.c \
-# 			ft_wstrffjoin.c \
-# 			ft_wstrcfjoin.c \
+LIBFT_FILES = \
+			ft_itoabase.c \
+			ft_strnew.c \
+			ft_wstrdup.c \
+			ft_wstrnew.c \
+			ft_lltoa.c \
+			ft_strffjoin.c \
+			ft_strlen.c \
+			ft_wstrffjoin.c \
+			ft_wstrlen.c \
+			ft_memdel.c \
+			ft_strcfjoin.c \
+			ft_strsub.c \
+			ft_strdup.c \
+			ft_atoi.c \
+			ft_isdigit.c \
+			ft_strchr.c \
+			ft_strnequ.c \
+			ft_tolower.c \
+			ft_putstr.c \
+			ft_putwstr.c
+
+LIBFT_SRC = $(LIBFT_FILES:%=$(LIBFT_DIR)/src/%)
 
 SRC = $(SRC_FILES:%=$(SRC_DIR)%)
-OBJ = $(SRC_FILES:%.c=$(OBJ_DIR)%.o)
-
+OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
+LIBFTOBJ = $(LIBFT_SRC:$(LIBFT_DIR)/src/%.c=$(LIBFT_DIR)/obj/%.o)
 # Libft files
 LIBFT = $(LIBFT_DIR)/libft.a
 
@@ -69,7 +80,7 @@ ARFLAGS = rcs
 all: $(NAME)
 
 $(NAME): libft $(OBJ)
-	$(AR) $(ARFLAGS) $(NAME) $(OBJ)
+	$(AR) $(ARFLAGS) $(NAME) $(OBJ) $(LIBFTOBJ)
 
 libft: $(LIBFT)
 
@@ -77,6 +88,9 @@ $(LIBFT):
 	make -C $(LIBFT_DIR)
 
 $(OBJ): %.o : %.c
+	$(CC) $(FLAGS) -c $(INC) -o $@ $<
+
+$(LIBFTOBJ) : libft/obj/%.o : libft/src/%.c
 	$(CC) $(FLAGS) -c $(INC) -o $@ $<
 
 # debug: $(LIBFT)
