@@ -32,8 +32,10 @@
 /*
 ** Option Flag tabke for ft_printf
 ** 0000xx == options and precision flags
-** 00xx00 == length modifier flags
-** xx0000 == type modifier flags
+** 00xx00 == length modifier flags*
+** xx0000 == type modifier flags*
+**
+** 008000 == Exception, is a type mod.
 */
 
 #define PFO_ALT		0x000001
@@ -50,6 +52,9 @@
 #define PFO_J		0x000800
 #define PFO_Z		0x001000
 #define PFO_CAPS	0x002000
+#define PFO_NULB	0x004000
+
+#define PFO_B		0x008000
 
 #define PFO_S		0x010000
 #define PFO_P		0x020000
@@ -66,7 +71,7 @@
 
 #define PFO_HH		0x000300
 #define PFO_LL		0x000500
-#define PFO_DIOUX	0x7c0000
+#define PFO_DIOUXB	0x7c4000
 #define PFO_SC		0x810000
 #define PFO_DI		0x0c0000
 
@@ -107,7 +112,7 @@ char		*pf_o(t_pfdrcv drcv, va_list ap);
 char		*pf_u(t_pfdrcv drcv, va_list ap);
 char		*pf_x(t_pfdrcv drcv, va_list ap);
 char		*pf_s(t_pfdrcv drcv, va_list ap);
-char		*pf_c(t_pfdrcv drcv, va_list ap);
+char		*pf_c(t_pfdrcv *drcv, va_list ap);
 char		*pf_p(t_pfdrcv drcv, va_list ap);
 char		*pf_prec(t_pfdrcv drcv, char **astr);
 char		*pf_zero(t_pfdrcv drcv, char **astr);
@@ -115,5 +120,6 @@ char		*pf_pad(t_pfdrcv drcv, char **astr);
 char		*pf_lpad(t_pfdrcv drcv, char **astr);
 char		*pf_sign(t_pfdrcv drcv, char **astr);
 char		*pf_space(t_pfdrcv drcv, char **astr);
+char		*pf_b(t_pfdrcv drcv, va_list ap);
 
 #endif

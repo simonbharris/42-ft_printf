@@ -12,18 +12,20 @@
 
 #include "ft_printf.h"
 
-char *pf_c(t_pfdrcv drcv, va_list ap)
+char *pf_c(t_pfdrcv *drcv, va_list ap)
 {
 	char *str;
 	wchar_t *ws;
 	wchar_t wc;
 
-	if (drcv.oflags & PFO_L)
+	if (drcv->oflags & PFO_L)
 	{
 		MALCHECK(ws = ft_wstrnew(sizeof(wchar_t) * 2))
 		wc = va_arg(ap, wchar_t);
 		ws = ft_wstrdup(&wc);
 		ws[1] = L'\x0';
+		if (ws[0] == L'\x0')
+			drcv->oflags |= PFO_NULB;
 		return ((char *)ws);
 	}
 	else
