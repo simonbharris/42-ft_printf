@@ -45,6 +45,7 @@
 
 # define PFO_SIGN	0x000010
 # define PFO_PREC	0x000020
+# define PFO_ESC	0x000040
 
 # define PFO_2MOD	0x000100
 # define PFO_H		0x000200

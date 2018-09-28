@@ -16,21 +16,13 @@ static int	putfmt(const char **afmt, va_list ap, int *numwrite)
 {
 	t_pfdrcv drcv;
 
-	if ((*afmt)[1] == '%')
-	{
-		ft_putchar('%');
+	drcv = get_drcv(*afmt);
+	*afmt += 1;
+	while (!ft_strchr("sSpdDioOuUxXcCb%%", **afmt))
 		*afmt += 1;
-		return (0);
-	}
-	else
-	{
-		drcv = get_drcv(*afmt);
-		while (!ft_strchr("sSpdDioOuUxXcCb", **afmt))
-			*afmt += 1;
-		*afmt += 1;
-		numwrite += put_drcv(drcv, ap);
-		return (1);
-	}
+	*afmt += 1;
+	numwrite += put_drcv(drcv, ap);
+	return (1);
 }
 
 int			ft_printf(const char *format, ...)
