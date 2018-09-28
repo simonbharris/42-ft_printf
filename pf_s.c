@@ -23,14 +23,18 @@ char	*pf_s(t_pfdrcv drcv, va_list ap)
 
 	if (drcv.oflags & PFO_L)
 	{
-		if (NULL == (str = (char *)ft_wstrdup(va_arg(ap, wchar_t *))))
-			return (NULL);
+		if (NULL == (str = va_arg(ap, wchar_t *)))
+			return (ft_strdup("(null)"));
+		if (NULL == (str = (char *)ft_wstrdup((wchar_t *)str)))
+			return (ft_strdup("(null)"));
 		wstr = (wchar_t *)str;
 	}
 	else
 	{
-		if (NULL == (str = ft_strdup((char *)va_arg(ap, char *))))
-			return (NULL);
+		if (NULL == (str = (char *)va_arg(ap, char *)))
+			return (ft_strdup("(null)"));
+		if (NULL == (str = ft_strdup(str)))
+			return (ft_strdup("(null)"));
 	}
 	return (str);
 }
