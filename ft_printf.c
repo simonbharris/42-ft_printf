@@ -21,8 +21,8 @@ static int	putfmt(const char **afmt, va_list ap, int *numwrite)
 	while (!ft_strchr("sSpdDioOuUxXcCb%%", **afmt))
 		*afmt += 1;
 	*afmt += 1;
-	numwrite += put_drcv(drcv, ap);
-	return (1);
+	*numwrite += put_drcv(drcv, ap);
+	return (*numwrite);
 }
 
 int			ft_printf(const char *format, ...)

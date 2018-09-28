@@ -23,7 +23,7 @@ char	*pf_s(t_pfdrcv drcv, va_list ap)
 
 	if (drcv.oflags & PFO_L)
 	{
-		if (NULL == (str = va_arg(ap, wchar_t *)))
+		if (NULL == (str = (char *)va_arg(ap, wchar_t *)))
 			return (ft_strdup("(null)"));
 		if (NULL == (str = (char *)ft_wstrdup((wchar_t *)str)))
 			return (ft_strdup("(null)"));
