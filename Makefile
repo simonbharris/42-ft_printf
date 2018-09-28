@@ -84,9 +84,9 @@ LIB = -L$(LIBFT_DIR) -lft
 AR = ar
 ARFLAGS = rcs
 
-all: mkdir $(NAME)
+all: $(NAME)
 
-$(NAME): libft $(OBJ)
+$(NAME):  mkdir libft $(OBJ)
 	@$(AR) $(ARFLAGS) $(NAME) $(OBJ) $(LIBFTOBJ)
 
 libft: $(LIBFT)
