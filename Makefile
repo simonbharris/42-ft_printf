@@ -86,8 +86,8 @@ ARFLAGS = rcs
 
 all: $(NAME)
 
-$(NAME):  mkdir libft $(OBJ)
-	@$(AR) $(ARFLAGS) $(NAME) $(OBJ) $(LIBFTOBJ)
+$(NAME):  $(OBJ_DIR) libft $(OBJ)
+	$(AR) $(ARFLAGS) $(NAME) $(OBJ) $(LIBFTOBJ)
 
 libft: $(LIBFT)
 
