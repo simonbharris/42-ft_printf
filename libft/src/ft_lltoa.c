@@ -6,13 +6,13 @@
 /*   By: sharris <sharris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 20:58:52 by sharris           #+#    #+#             */
-/*   Updated: 2018/07/09 20:58:52 by sharris          ###   ########.fr       */
+/*   Updated: 2018/09/27 17:57:40 by sharris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-static int	get_alloc_size(long long nbr)
+static int			get_alloc_size(long long nbr)
 {
 	int		i;
 
@@ -40,7 +40,7 @@ static long long	check_neg_make_abs(long long *n)
 		return (0);
 }
 
-char		*ft_lltoa(long long n)
+char				*ft_lltoa(long long n)
 {
 	char			*str;
 	long long		i;
