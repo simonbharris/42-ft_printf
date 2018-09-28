@@ -98,8 +98,6 @@ static void		set_type(t_pfdrcv *drcv, const char **format)
 		drcv->oflags |= PFO_I;
 	else if (**format == 'b')
 		drcv->oflags |= PFO_B;
-	else if (**format == '%')
-		drcv->oflags |= PFO_ESC;
 	else if (ft_tolower((int)**format) == 'x')
 	{
 		if (**format == 'X')
@@ -122,8 +120,7 @@ t_pfdrcv		get_drcv(const char *format)
 	t_pfdrcv drcv;
 
 	drcv = initpfdir();
-	format++;
-	while (*format && !ft_strchr("sSpdDioOuUxXcCb%%", (int)*format))
+	while (*format && !ft_strchr("sSpdDioOuUxXcCb", (int)*format))
 	{
 		set_opt(&drcv, *format);
 		set_mfw_prec(&drcv, &format);
