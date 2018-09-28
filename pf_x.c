@@ -38,4 +38,3 @@ char	*pf_x(t_pfdrcv drcv, va_list ap)
 		return (ft_itoabase(i, "0123456789ABCDEF"));
 	return (ft_itoabase(i, "0123456789abcdef"));
 }
-

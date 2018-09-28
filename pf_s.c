@@ -22,11 +22,15 @@ char	*pf_s(t_pfdrcv drcv, va_list ap)
 	wchar_t	*wstr;
 
 	if (drcv.oflags & PFO_L)
-		{
-			MALCHECK(str = (char *)ft_wstrdup((wchar_t *)va_arg(ap, wchar_t *)))
-			wstr = (wchar_t *)str;
-		}
+	{
+		if (NULL == (str = (char *)ft_wstrdup(va_arg(ap, wchar_t *))))
+			return (NULL);
+		wstr = (wchar_t *)str;
+	}
 	else
-		MALCHECK(str = ft_strdup((char *)va_arg(ap, char *)));
-	return(str);
+	{
+		if (NULL == (str = ft_strdup((char *)va_arg(ap, char *))))
+			return (NULL);
+	}
+	return (str);
 }

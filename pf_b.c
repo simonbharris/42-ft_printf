@@ -39,4 +39,3 @@ char	*pf_b(t_pfdrcv drcv, va_list ap)
 		return (ft_itoabase(i, "01"));
 	return (ft_itoabase(i, "01"));
 }
-

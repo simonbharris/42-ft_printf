@@ -16,7 +16,7 @@
 ** Dispatches for numeric types.
 */
 
-char		*pf_dioux(t_pfdrcv drcv, va_list ap)
+char			*pf_dioux(t_pfdrcv drcv, va_list ap)
 {
 	if (drcv.oflags & (PFO_D | PFO_I))
 		return (pf_di(drcv, ap));
@@ -36,7 +36,7 @@ char		*pf_dioux(t_pfdrcv drcv, va_list ap)
 ** Passes the returned char* up
 */
 
-char		*dispatcher(t_pfdrcv *drcv, va_list ap)
+char			*dispatcher(t_pfdrcv *drcv, va_list ap)
 {
 	if (drcv->oflags & PFO_DIOUXB)
 		return (pf_dioux(*drcv, ap));
@@ -54,7 +54,7 @@ char		*dispatcher(t_pfdrcv *drcv, va_list ap)
 ** the directive(drcv)
 */
 
-static void	applyfmt(t_pfdrcv drcv, char **astr)
+static void		applyfmt(t_pfdrcv drcv, char **astr)
 {
 	if (drcv.oflags & PFO_ALT || drcv.oflags & PFO_PREC || drcv.oflags & PFO_P)
 		pf_prec(drcv, astr);
@@ -96,7 +96,8 @@ static void		pf_putfmt(t_pfdrcv drcv, char *str)
 }
 
 /*
-** Handles getting the param from va_list, modifying the returned char *, prints it,
+** Handles getting the param from va_list,
+** modifying the returned char *, prints it,
 ** then returns bytes printed.
 */
 

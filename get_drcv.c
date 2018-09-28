@@ -31,15 +31,15 @@
 
 static void		set_opt(t_pfdrcv *drcv, const char c)
 {
-	if(!(drcv->oflags & PFO_ALT) && (c == '#'))
+	if (!(drcv->oflags & PFO_ALT) && (c == '#'))
 		drcv->oflags |= PFO_ALT;
-	if(!(drcv->oflags & PFO_PAD0) && (c == '0'))
+	if (!(drcv->oflags & PFO_PAD0) && (c == '0'))
 		drcv->oflags |= PFO_PAD0;
-	if(!(drcv->oflags & PFO_SPC) && (c == ' '))
+	if (!(drcv->oflags & PFO_SPC) && (c == ' '))
 		drcv->oflags |= PFO_SPC;
-	if(!(drcv->oflags & PFO_LPD) && (c == '-'))
+	if (!(drcv->oflags & PFO_LPD) && (c == '-'))
 		drcv->oflags |= PFO_LPD;
-	if(!(drcv->oflags & PFO_SIGN) && (c == '+'))
+	if (!(drcv->oflags & PFO_SIGN) && (c == '+'))
 		drcv->oflags |= PFO_SIGN;
 }
 

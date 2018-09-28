@@ -49,7 +49,7 @@ void		skip_atoi(const char **str)
 ** null-terminated.
 */
 
-char *gen_padding(int len, int c)
+char		*gen_padding(int len, int c)
 {
 	char *out;
 
@@ -59,7 +59,7 @@ char *gen_padding(int len, int c)
 	return (out);
 }
 
-wchar_t *gen_wpadding(int len, wchar_t c)
+wchar_t		*gen_wpadding(int len, wchar_t c)
 {
 	wchar_t *out;
 

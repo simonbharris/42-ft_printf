@@ -12,10 +12,10 @@
 
 #include "ft_printf.h"
 
-static int putfmt(const char **afmt, va_list ap, int *numwrite)
+static int	putfmt(const char **afmt, va_list ap, int *numwrite)
 {
 	t_pfdrcv drcv;
-	
+
 	if ((*afmt)[1] == '%')
 	{
 		ft_putchar('%');
@@ -52,5 +52,5 @@ int			ft_printf(const char *format, ...)
 		numwrite++;
 		format++;
 	}
-	return(numwrite);
+	return (numwrite);
 }

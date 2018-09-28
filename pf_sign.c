@@ -27,5 +27,5 @@ char	*pf_sign(t_pfdrcv drcv, char **astr)
 		else
 			*astr = ft_strcfjoin("+", astr);
 	}
-	return(*astr);
+	return (*astr);
 }

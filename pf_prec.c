@@ -91,9 +91,9 @@ char		*pf_prec(t_pfdrcv drcv, char **astr)
 {
 	char *hold;
 
-		if ((drcv.oflags & (PFO_DIOUXB | PFO_P)))
-			pf_prec_n(drcv, astr, &hold);
-		else if ((drcv.oflags & PFO_PREC) && (drcv.oflags & PFO_S))
-			pf_prec_s(drcv, astr, &hold);
+	if ((drcv.oflags & (PFO_DIOUXB | PFO_P)))
+		pf_prec_n(drcv, astr, &hold);
+	else if ((drcv.oflags & PFO_PREC) && (drcv.oflags & PFO_S))
+		pf_prec_s(drcv, astr, &hold);
 	return (*astr);
 }
