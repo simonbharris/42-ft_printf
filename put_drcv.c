@@ -46,6 +46,8 @@ char			*dispatcher(t_pfdrcv *drcv, va_list ap)
 		return (pf_p(*drcv, ap));
 	else if (drcv->oflags & PFO_C)
 		return (pf_c(drcv, ap));
+	else if (drcv->oflags & PFO_ESC)
+		return(ft_strdup("%"));
 	return (NULL);
 }
 
