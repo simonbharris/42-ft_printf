@@ -13,18 +13,9 @@
 #include "ft_printf.h"
 
 /*
-** is_zero
-** Since my atoi doesn't work with hex, this just sees if the
-** string only contains zeros, if it does, the represented value is zero.
+** If a numeric datatype is zero, and precision is zero.
+** then return empty string.
 */
-
-static int	is_hexzero(char *str)
-{
-	while (*str)
-		if (*str++ != '0')
-			return (0);
-	return (1);
-}
 
 int			is_num_zeroprec(t_pfdrcv drcv, char **astr)
 {
@@ -41,7 +32,11 @@ int			is_num_zeroprec(t_pfdrcv drcv, char **astr)
 	return (0);
 }
 
-int		add_num_prec(t_pfdrcv drcv, char **astr, char **hold)
+/*
+** Adding precision to numeric datatypes
+*/
+
+int			add_num_prec(t_pfdrcv drcv, char **astr, char **hold)
 {
 	if (drcv.oflags & PFO_PREC && (int)ft_strlen(*astr) < drcv.pv)
 	{
@@ -70,7 +65,8 @@ static void	pf_prec_n(t_pfdrcv drcv, char **astr, char **hold)
 {
 	if (is_num_zeroprec(drcv, astr))
 		return ;
-	if (add_num_prec(drcv, astr, hold));
+	if (add_num_prec(drcv, astr, hold))
+		return ;
 	else if ((!(drcv.oflags & PFO_LPD))
 	&& drcv.oflags & PFO_PAD0 && (int)ft_strlen(*astr) < drcv.mfw)
 		pf_zero(drcv, astr);

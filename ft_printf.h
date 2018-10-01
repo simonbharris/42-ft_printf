@@ -108,6 +108,11 @@ void			skip_atoi(const char **str);
 t_pfdrcv		initpfdir(void);
 char			*gen_padding(int len, int c);
 wchar_t			*gen_wpadding(int len, wchar_t c);
+int				set_numeric_type(t_pfdrcv *drcv, const char **format);
+void			set_lmod(t_pfdrcv *drcv, const char **format);
+void			set_type(t_pfdrcv *drcv, const char **format);
+void			set_opt(t_pfdrcv *drcv, const char c);
+int				is_hexzero(char *str);
 
 /*
 ** Functions to handle flags.

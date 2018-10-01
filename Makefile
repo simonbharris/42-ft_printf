@@ -36,7 +36,8 @@ SRC_FILES = ft_printf.c \
 			pf_pad.c \
 			pf_space.c \
 			pf_sign.c \
-			pf_b.c
+			pf_b.c \
+			flag_util.c
 
 LIBFT_FILES = \
 			ft_itoabase.c \

@@ -29,7 +29,9 @@ t_pfdrcv	initpfdir(void)
 
 /*
 ** skip_atoi
-** Skips over positive atoi values.
+** leaps any digits in the string. Moves back 1 space so the guaranteed string
+** increments in get_drcv don't seg fault--In case the skip places us
+** on a null-byte.
 */
 
 void		skip_atoi(const char **str)
@@ -59,6 +61,10 @@ char		*gen_padding(int len, int c)
 	return (out);
 }
 
+/*
+** Same as above, but for wide strings.
+*/
+
 wchar_t		*gen_wpadding(int len, wchar_t c)
 {
 	wchar_t *out;
@@ -67,4 +73,18 @@ wchar_t		*gen_wpadding(int len, wchar_t c)
 	while (len-- > 0)
 		out[len] = c;
 	return (out);
+}
+
+/*
+** is_hexzero
+** Since my atoi doesn't work with hex, this just sees if the
+** string only contains zeros, if it does, the represented value is zero.
+*/
+
+int			is_hexzero(char *str)
+{
+	while (*str)
+		if (*str++ != '0')
+			return (0);
+	return (1);
 }
