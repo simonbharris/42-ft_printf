@@ -12,7 +12,15 @@
 
 #include "ft_printf.h"
 
-#define IS_ATOI_NEGATIVE(x) ((ft_atoi(x) < 0) ? 1 : 0)
+/*
+** This define is coupled with add_zpad. The 2 comes when concerning that
+** precision means extra padded zeros, AND the need to account for
+** the negative sign.
+** Cannot do is >= in the comparison instead because it messes with positive
+** values... Printf works weird.
+*/
+
+#define IS_ATOI_NEGATIVE(x) ((ft_atoi(x) < 0) ? 2 : 0)
 
 /*
 ** Prepends the 0x or 0X alt print for hex
@@ -32,8 +40,8 @@ static void	prepend_altx(t_pfdrcv drcv, char **astr)
 
 static void	add_zpad(t_pfdrcv drcv, char **astr, char **hold)
 {
-	if (!(drcv.oflags & PFO_DIOUXB
-	&& (int)ft_strlen(*astr) + drcv.pv - IS_ATOI_NEGATIVE(*astr) > drcv.mfw))
+	if ((drcv.oflags & PFO_DIOUXB)
+	&& (int)ft_strlen(*astr) + drcv.pv - IS_ATOI_NEGATIVE(*astr) < drcv.mfw)
 	{
 		*hold = gen_padding(drcv.mfw - ft_strlen(*astr), '0');
 		if (**astr == '-')
