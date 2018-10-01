@@ -22,13 +22,16 @@ static void prepend_altx(t_pfdrcv drcv, char **astr)
 
 static void	add_zpad(t_pfdrcv drcv, char **astr, char **hold)
 {
-	*hold = gen_padding (drcv.mfw - ft_strlen(*astr), '0');
-	if (**astr == '-')
+	if (!(drcv.oflags & PFO_DIOUXB && ft_strlen(*astr) + drcv.pv >= drcv.mfw))
 	{
-		**astr = '0';
-		**hold = '-';
+		*hold = gen_padding (drcv.mfw - ft_strlen(*astr), '0');
+		if (**astr == '-')
+		{
+			**astr = '0';
+			**hold = '-';
+		}
+		*astr = ft_strffjoin(hold, astr);
 	}
-	*astr = ft_strffjoin(hold, astr);
 }
 
 /*
