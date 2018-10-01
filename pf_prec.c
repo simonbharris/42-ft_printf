@@ -26,22 +26,7 @@ static int	is_hexzero(char *str)
 	return (1);
 }
 
-static void prepend_altx(t_pfdrcv drcv, char **astr)
-{
-	if (drcv.oflags & PFO_CAPS)
-		*astr = ft_strcfjoin("0X", astr);
-	else
-		*astr = ft_strcfjoin("0x", astr);
-}
-/*
-** pf_prec_n Precision numeric
-** Pads with zeros up to length of precision.
-** if alt flag is enabled or is a pointer type, prepends 0, 0x, or 0X
-** to the appropriate types.
-** (Handles diouxbp types, with special cases for oxp)
-*/
-
-static void	pf_prec_n(t_pfdrcv drcv, char **astr, char **hold)
+int			is_num_zeroprec(t_pfdrcv drcv, char **astr)
 {
 	if (drcv.oflags & PFO_PREC && drcv.pv == 0 && drcv.oflags & PFO_DIOUXB
 	&& !(drcv.oflags & PFO_O && drcv.oflags & PFO_ALT))
@@ -50,9 +35,14 @@ static void	pf_prec_n(t_pfdrcv drcv, char **astr, char **hold)
 		{
 			free(*astr);
 			*astr = ft_strdup("");
-			return ;
+			return (1);
 		}
 	}
+	return (0);
+}
+
+int		add_num_prec(t_pfdrcv drcv, char **astr, char **hold)
+{
 	if (drcv.oflags & PFO_PREC && (int)ft_strlen(*astr) < drcv.pv)
 	{
 		*hold = gen_padding(drcv.oflags & PFO_PREC ?
@@ -63,32 +53,27 @@ static void	pf_prec_n(t_pfdrcv drcv, char **astr, char **hold)
 			*hold = ft_strcfjoin("-", hold);
 		}
 		*astr = ft_strffjoin(hold, astr);
+		return (1);
 	}
+	return (0);
+}
+
+/*
+** pf_prec_n Precision numeric
+** Pads with zeros up to length of precision.
+** if alt flag is enabled or is a pointer type, prepends 0, 0x, or 0X
+** to the appropriate types.
+** (Handles diouxbp types, with special cases for oxp)
+*/
+
+static void	pf_prec_n(t_pfdrcv drcv, char **astr, char **hold)
+{
+	if (is_num_zeroprec(drcv, astr))
+		return ;
+	if (add_num_prec(drcv, astr, hold));
 	else if ((!(drcv.oflags & PFO_LPD))
-		&& drcv.oflags & PFO_PAD0 && (int)ft_strlen(*astr) < drcv.mfw)
-	{
-		if (drcv.oflags & PFO_X && drcv.oflags & PFO_ALT)
-		{
-			if (drcv.mfw - 2 > (int)ft_strlen(*astr))
-			{
-				*hold = gen_padding(drcv.mfw - 2 - (int)ft_strlen(*astr), '0');
-				*astr = ft_strffjoin(hold, astr);
-				prepend_altx(drcv, astr);
-			}
-			else
-				prepend_altx(drcv, astr);
-		}
-		else
-		{
-			*hold = gen_padding (drcv.mfw - ft_strlen(*astr), '0');
-			if (**astr == '-')
-			{
-				**astr = '0';
-				**hold = '-';
-			}
-			*astr = ft_strffjoin(hold, astr);
-		}
-	}
+	&& drcv.oflags & PFO_PAD0 && (int)ft_strlen(*astr) < drcv.mfw)
+		pf_zero(drcv, astr);
 	else if ((drcv.oflags & PFO_X) && (drcv.oflags & PFO_ALT))
 	{
 		if (!is_hexzero(*astr))
