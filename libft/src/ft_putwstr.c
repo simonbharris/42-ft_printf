@@ -20,11 +20,23 @@
 void	ft_putwstr(wchar_t *wstr)
 {
 	int i;
-
+	int j;
+	int numb;
+	unsigned char *byte;
+	
 	i = 0;
+	numb = 0;
 	while (wstr[i])
 	{
-		write(1, &(wstr[i]), 1);
+		j = 0;
+		byte = (unsigned char *)wstr;
+		while (j++ < 4)
+		{
+			if (*byte++)
+				numb = j;
+		}
+		write(1, wstr, numb);
+		wstr++;
 		i++;
 	}
 }

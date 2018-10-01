@@ -32,7 +32,8 @@ char	*pf_pad(t_pfdrcv drcv, char **astr)
 	}
 	else if (drcv.mfw > (int)ft_strlen(*astr))
 	{
-		pad = gen_padding(drcv.mfw - ft_strlen(*astr), ' ');
+		pad = gen_padding(drcv.mfw - ft_strlen(*astr) -
+			((drcv.oflags & PFO_NULB) == PFO_NULB), ' ');
 		*astr = ft_strffjoin(&pad, astr);
 	}
 	return (*astr);

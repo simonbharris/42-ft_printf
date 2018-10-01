@@ -65,8 +65,10 @@ LIBFT_FILES = \
 			ft_memalloc.c \
 			ft_strcpy.c \
 			ft_strjoin.c \
-			ft_wstrjoin.c
-
+			ft_wstrjoin.c \
+			ft_wstrcpy.c \
+			ft_memcpy.c
+			
 LIBFT_SRC = $(LIBFT_FILES:%=$(LIBFT_DIR)/src/%)
 
 SRC = $(SRC_FILES:%=$(SRC_DIR)%)
@@ -104,6 +106,9 @@ $(OBJ): $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 
 $(LIBFTOBJ) : libft/obj/%.o : libft/src/%.c : libft
 	@$(CC) $(FLAGS) -c $(INC) $< -o $@ 
+
+debug: $(LIBFT)
+	$(CC) -g $(INC) libft/src/* $(SRC) main.c -o a.out
 
 clean:
 	@rm -f $(OBJ)

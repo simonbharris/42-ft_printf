@@ -20,7 +20,8 @@ static int	putfmt(const char **afmt, va_list ap, int *numwrite)
 	*afmt += 1;
 	while (!ft_strchr("sSpdDioOuUxXcCb%%", **afmt))
 		*afmt += 1;
-	*afmt += 1;
+	if (**afmt)
+		*afmt += 1;
 	*numwrite += put_drcv(drcv, ap);
 	return (*numwrite);
 }
@@ -40,9 +41,11 @@ int			ft_printf(const char *format, ...)
 				continue ;
 		}
 		else
+		{
 			ft_putchar(*format);
-		numwrite++;
-		format++;
+			numwrite++;
+			format++;
+		}
 	}
 	return (numwrite);
 }

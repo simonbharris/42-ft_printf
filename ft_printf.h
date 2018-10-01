@@ -35,7 +35,11 @@
 ** 00xx00 == length modifier flags*
 ** xx0000 == type modifier flags*
 **
-** 008000 == Exception, is a type mod.
+** Exceptions:
+** 000040 (PFO_ESC) Asked to print escape character.
+** 000080 (PFO_ISNEG) Input signed numeric is negative.
+** 004000 (PFO_NULB) Asked to print a null-byte character.
+** 008000 (PFO_B) Is a type mod.
 */
 
 # define PFO_ALT	0x000001
@@ -46,6 +50,7 @@
 # define PFO_SIGN	0x000010
 # define PFO_PREC	0x000020
 # define PFO_ESC	0x000040
+# define PFO_ISNEG	0x000080
 
 # define PFO_2MOD	0x000100
 # define PFO_H		0x000200

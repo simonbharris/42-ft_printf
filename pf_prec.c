@@ -26,6 +26,13 @@ static int	is_hexzero(char *str)
 	return (1);
 }
 
+static void prepend_altx(t_pfdrcv drcv, char **astr)
+{
+	if (drcv.oflags & PFO_CAPS)
+		*astr = ft_strcfjoin("0X", astr);
+	else
+		*astr = ft_strcfjoin("0x", astr);
+}
 /*
 ** pf_prec_n Precision numeric
 ** Pads with zeros up to length of precision.
@@ -36,12 +43,53 @@ static int	is_hexzero(char *str)
 
 static void	pf_prec_n(t_pfdrcv drcv, char **astr, char **hold)
 {
+	if (drcv.oflags & PFO_PREC && drcv.pv == 0 && drcv.oflags & PFO_DIOUXB
+	&& !(drcv.oflags & PFO_O && drcv.oflags & PFO_ALT))
+	{
+		if (ft_atoi(*astr) == 0)
+		{
+			free(*astr);
+			*astr = ft_strdup("");
+			return ;
+		}
+	}
 	if (drcv.oflags & PFO_PREC && (int)ft_strlen(*astr) < drcv.pv)
 	{
-		*hold = gen_padding(drcv.pv - ft_strlen(*astr), '0');
+		*hold = gen_padding(drcv.oflags & PFO_PREC ?
+			drcv.pv - ft_strlen(*astr) : drcv.mfw - ft_strlen(*astr), '0');
+		if (**astr == '-')
+		{
+			**astr = '0';
+			*hold = ft_strcfjoin("-", hold);
+		}
 		*astr = ft_strffjoin(hold, astr);
 	}
-	if ((drcv.oflags & PFO_X) && (drcv.oflags & PFO_ALT))
+	else if ((!(drcv.oflags & PFO_LPD))
+		&& drcv.oflags & PFO_PAD0 && (int)ft_strlen(*astr) < drcv.mfw)
+	{
+		if (drcv.oflags & PFO_X && drcv.oflags & PFO_ALT)
+		{
+			if (drcv.mfw - 2 > (int)ft_strlen(*astr))
+			{
+				*hold = gen_padding(drcv.mfw - 2 - (int)ft_strlen(*astr), '0');
+				*astr = ft_strffjoin(hold, astr);
+				prepend_altx(drcv, astr);
+			}
+			else
+				prepend_altx(drcv, astr);
+		}
+		else
+		{
+			*hold = gen_padding (drcv.mfw - ft_strlen(*astr), '0');
+			if (**astr == '-')
+			{
+				**astr = '0';
+				**hold = '-';
+			}
+			*astr = ft_strffjoin(hold, astr);
+		}
+	}
+	else if ((drcv.oflags & PFO_X) && (drcv.oflags & PFO_ALT))
 	{
 		if (!is_hexzero(*astr))
 		{

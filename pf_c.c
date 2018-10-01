@@ -19,19 +19,18 @@
 char	*pf_c(t_pfdrcv *drcv, va_list ap)
 {
 	char	*str;
-	wchar_t	*ws;
 	wchar_t	wc;
 
 	if (drcv->oflags & PFO_L)
 	{
-		if (NULL == (ws = ft_wstrnew(sizeof(wchar_t) * 2)))
+		if (NULL == (str = (char *)ft_wstrnew(sizeof(wchar_t) * 2)))
 			return (NULL);
 		wc = va_arg(ap, wchar_t);
-		ws = ft_wstrdup(&wc);
-		ws[1] = L'\x0';
-		if (ws[0] == 0)
+		ft_wstrcpy((wchar_t *)str, &wc);
+		str[1] = L'\x0';
+		if (str[0] == 0)
 			drcv->oflags |= PFO_NULB;
-		return ((char *)ws);
+		return ((char *)str);
 	}
 	else
 	{

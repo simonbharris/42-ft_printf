@@ -22,7 +22,7 @@ char	*pf_sign(t_pfdrcv drcv, char **astr)
 	if ((drcv.oflags & PFO_SIGN) && (drcv.oflags & PFO_DI)
 	&& ft_atoi(*astr) >= 0)
 	{
-		if (**astr == '0')
+		if (drcv.mfw == (int)ft_strlen(*astr) && **astr == '0')
 			**astr = '+';
 		else
 			*astr = ft_strcfjoin("+", astr);

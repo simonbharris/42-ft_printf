@@ -25,6 +25,11 @@ char	*pf_zero(t_pfdrcv drcv, char **astr)
 		if ((int)ft_strlen(*astr) < drcv.mfw)
 		{
 			pad = gen_padding(drcv.mfw - ft_strlen(*astr), '0');
+			if (**astr == '-')
+			{
+				**astr = '0';
+				*pad = '-';
+			}
 			*astr = ft_strffjoin(&pad, astr);
 		}
 	}

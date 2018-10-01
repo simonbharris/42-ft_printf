@@ -20,11 +20,10 @@
 
 wchar_t	*ft_wstrcpy(wchar_t *dst, const wchar_t *src)
 {
-	int i;
+	int l;
 
-	i = -1;
-	while (src[++i])
-		dst[i] = src[i];
-	dst[i] = L'\0';
+	l = 0;
+	while(src[l++] != '\x0');
+	ft_memcpy(dst, src, l + (int)sizeof(wchar_t));
 	return (dst);
 }

@@ -113,6 +113,8 @@ int				put_drcv(t_pfdrcv drcv, va_list ap)
 	applyfmt(drcv, &str);
 	pf_putfmt(drcv, str);
 	len = ft_strlen(str);
+	if (drcv.oflags & PFO_NULB)
+		len++;
 	ft_memdel((void **)&str);
 	return (len);
 }
