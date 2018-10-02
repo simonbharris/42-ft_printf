@@ -22,8 +22,8 @@ void	ft_putwstr(wchar_t *wstr)
 	int i;
 
 	i = 0;
-	while (wstr[i++])
+	while (*wstr)
 	{
-		write(1, wstr, 1);
+		write(1, wstr++, 4);
 	}
 }
