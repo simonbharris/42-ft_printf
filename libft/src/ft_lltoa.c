@@ -46,7 +46,7 @@ char				*ft_lltoa(long long n)
 	long long		i;
 
 	i = 0;
-	if (NULL == (str = ft_memalloc(get_alloc_size(n))))
+	if (NULL == (str = ft_strnew(get_alloc_size(n))))
 		return (NULL);
 	if ((unsigned long long)n == -9223372036854775808ULL)
 		ft_strcpy(&(*str), "-9223372036854775808");
