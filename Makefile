@@ -10,16 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
-# Makefile for
 NAME = libftprintf.a
 
-# Directories
-SRC_DIR = ./
-OBJ_DIR = ./obj/
-INC_DIR = ./libft/includes/
-LIBFT_DIR = libft
-
-# GNL files
 SRC_FILES = ft_printf.c \
 			get_drcv.c \
 			drcv_util.c \
@@ -69,57 +61,40 @@ LIBFT_FILES = \
 			ft_wstrjoin.c \
 			ft_wstrcpy.c \
 			ft_memcpy.c
-			
-LIBFT_SRC = $(LIBFT_FILES:%=$(LIBFT_DIR)/src/%)
 
-SRC = $(SRC_FILES:%=$(SRC_DIR)%)
-OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
-LIBFTOBJ = $(LIBFT_SRC:$(LIBFT_DIR)/src/%.c=$(LIBFT_DIR)/obj/%.o)
-# Libft files
-LIBFT = $(LIBFT_DIR)/libft.a
+LIBFT_DIR = libft/
+LIBFT_NAME = $(LIBFT_DIR)libft.a
+LIBFT = -L $(LIBFT_DIR) -l ft
 
-# Compiler
+OBJ = $(SRC_FILES:%.c=%.o)
+LIBFT_OBJ = $(LIBFT_FILES:%.c=$(LIBFT_DIR)obj/%.o)
+INC = -I libft/includes
+
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
-INC = -I $(LIBFT_DIR)/includes
-LIB = -L$(LIBFT_DIR) -lft
+WFLAGS = -Wall -Wextra -Werror
 
 AR = ar
 ARFLAGS = rcs
 
 all: $(NAME)
 
-$(NAME):  $(OBJ_DIR) libft $(OBJ)
-	$(AR) $(ARFLAGS) $(NAME) $(OBJ) $(LIBFTOBJ)
+$(OBJ): %.o : %.c
+	$(CC) -c $(INC) $< -o $@
 
-libft: $(LIBFT)
+$(NAME): $(OBJ) $(LIBFT_OBJ)
+	$(AR) $(ARFLAGS) $(NAME) $(LIBFT_OBJ) $(OBJ) 
 
-mkdir : $(OBJ_DIR)
-
-$(OBJ_DIR):
-	@mkdir obj
-
-$(LIBFT):
-	@make -C $(LIBFT_DIR)
-
-$(OBJ): $(OBJ_DIR)%.o : $(SRC_DIR)%.c
-	@$(CC) $(FLAGS) -c $(INC) $< -o $@ 
-
-$(LIBFTOBJ) : libft/obj/%.o : libft/src/%.c : libft
-	@$(CC) $(FLAGS) -c $(INC) $< -o $@ 
-
-debug: $(LIBFT)
-	$(CC) -g $(INC) libft/src/* $(SRC) main.c -o a.out
+$(LIBFT_OBJ):
+	make re -C libft/
 
 clean:
-	@rm -f $(OBJ)
-	@make clean -C $(LIBFT_DIR)
-	@rm -Rf $(OBJ_DIR)
-	@make fclean -C $(LIBFT_DIR)
+	rm -f $(OBJ)
+	make clean -C $(LIBFT_DIR)
 
 fclean: clean
-	@rm -f $(NAME)
+	rm -f $(NAME)
+	make fclean -C $(LIBFT_DIR)
 
 re: fclean all
 
-.PHONY : all, re, clean, fclean, libft, mkdir
+.PHONY: all, clean, fclean, re
