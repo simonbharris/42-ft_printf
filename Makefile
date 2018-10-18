@@ -66,7 +66,8 @@ LIBFT_DIR = libft/
 LIBFT_NAME = $(LIBFT_DIR)libft.a
 LIBFT = -L $(LIBFT_DIR) -l ft
 
-OBJ = $(SRC_FILES:%.c=%.o)
+OBJ_DIR = obj/
+OBJ = $(SRC_FILES:%.c=$(OBJ_DIR)%.o)
 LIBFT_OBJ = $(LIBFT_FILES:%.c=$(LIBFT_DIR)obj/%.o)
 INC = -I libft/includes
 
@@ -78,17 +79,20 @@ ARFLAGS = rcs
 
 all: $(NAME)
 
-$(OBJ): %.o : %.c
+$(OBJ): $(OBJ_DIR)%.o : ./%.c
 	$(CC) -c $(INC) $< -o $@
 
-$(NAME): $(OBJ) $(LIBFT_OBJ)
+$(NAME): $(OBJ) $(LIBFT_OBJ) $(OBJ_DIR)
 	$(AR) $(ARFLAGS) $(NAME) $(LIBFT_OBJ) $(OBJ) 
 
 $(LIBFT_OBJ):
 	make re -C libft/
 
+$(OBJ_DIR):
+	mkdir obj/
+
 clean:
-	rm -f $(OBJ)
+	rm -Rf $(OBJ_DIR)
 	make clean -C $(LIBFT_DIR)
 
 fclean: clean
