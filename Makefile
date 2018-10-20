@@ -6,7 +6,7 @@
 #    By: sharris <sharris@student.42.us.org>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/19 15:50:45 by sharris           #+#    #+#              #
-#    Updated: 2018/08/19 16:41:27 by sharris          ###   ########.fr        #
+#    Updated: 2018/10/20 14:02:42 by sharris          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ all: $(NAME)
 $(OBJ): $(OBJ_DIR)%.o : ./%.c
 	$(CC) -c $(INC) $< -o $@
 
-$(NAME): $(OBJ) $(LIBFT_OBJ) $(OBJ_DIR)
+$(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT_OBJ)
 	$(AR) $(ARFLAGS) $(NAME) $(LIBFT_OBJ) $(OBJ) 
 
 $(LIBFT_OBJ):
