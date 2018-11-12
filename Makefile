@@ -6,7 +6,7 @@
 #    By: sharris <sharris@student.42.us.org>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/19 15:50:45 by sharris           #+#    #+#              #
-#    Updated: 2018/10/20 14:02:42 by sharris          ###   ########.fr        #
+#    Updated: 2018/11/12 00:43:00 by sharris          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,8 @@ SRC_FILES = ft_printf.c \
 			pf_sign.c \
 			pf_b.c \
 			flag_util.c
+SRC_DIR = src/
+SRC = (SRC_FILES:%=$(SRC_DIR)%)
 
 LIBFT_FILES = \
 			ft_itoabase.c \
@@ -68,8 +70,10 @@ LIBFT = -L $(LIBFT_DIR) -l ft
 
 OBJ_DIR = obj/
 OBJ = $(SRC_FILES:%.c=$(OBJ_DIR)%.o)
+INC = -I includes/
+
 LIBFT_OBJ = $(LIBFT_FILES:%.c=$(LIBFT_DIR)obj/%.o)
-INC = -I libft/includes
+LIBFT_INC = -I libft/includes
 
 CC = gcc
 WFLAGS = -Wall -Wextra -Werror
@@ -79,8 +83,8 @@ ARFLAGS = rcs
 
 all: $(NAME)
 
-$(OBJ): $(OBJ_DIR)%.o : ./%.c
-	$(CC) -c $(INC) $< -o $@
+$(OBJ): $(OBJ_DIR)%.o : ./$(SRC_DIR)%.c
+	$(CC) -c $(INC) $(LIBFT_INC) $< -o $@
 
 $(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT_OBJ)
 	$(AR) $(ARFLAGS) $(NAME) $(LIBFT_OBJ) $(OBJ) 

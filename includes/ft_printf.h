@@ -6,7 +6,7 @@
 /*   By: sharris <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 06:50:18 by sharris           #+#    #+#             */
-/*   Updated: 2018/09/17 07:08:21 by sharris          ###   ########.fr       */
+/*   Updated: 2018/11/12 00:43:54 by sharris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <locale.h>
 # include <stdarg.h>
-# include "./libft/includes/libft.h"
+# include <libft.h>
 
 # define TRUE 1
 # define FALSE 0
